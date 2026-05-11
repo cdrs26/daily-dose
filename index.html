@@ -1,0 +1,2864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Daily Dose · Your Personalized News Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ================ Reset & base ================ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(180deg, #f8fbff 0%, #eef4fb 100%);
+    color: #0f172a;
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, .serif { font-family: 'Fraunces', Georgia, serif; letter-spacing: -0.01em; }
+  a { color: #1d4ed8; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  ::selection { background: #bfdbfe; }
+
+  /* ================ Layout ================ */
+  .app { max-width: 1200px; margin: 0 auto; padding: 28px 32px 80px; }
+
+  /* ================ Header ================ */
+  header.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0 28px; border-bottom: 1px solid #e2e8f0; margin-bottom: 36px;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark {
+    width: 46px; height: 46px; border-radius: 12px;
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    display: grid; place-items: center; color: white;
+    box-shadow: 0 6px 20px -8px rgba(30, 64, 175, 0.6);
+  }
+  .brand-mark svg { width: 26px; height: 26px; }
+  .brand-text h1 {
+    font-size: 26px; margin: 0; font-weight: 700; color: #0f172a;
+  }
+  .brand-text p {
+    margin: 2px 0 0; font-size: 13px; color: #64748b; font-family: 'Inter', sans-serif;
+    font-weight: 500; letter-spacing: 0.02em;
+  }
+  .brand-text p .dot { color: #3b82f6; margin: 0 6px; }
+  .top-actions { display: flex; gap: 8px; align-items: center; }
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 10px; background: white;
+    border: 1px solid #e2e8f0; display: grid; place-items: center;
+    color: #475569; transition: all 0.15s ease;
+  }
+  .icon-btn:hover { background: #eff6ff; border-color: #93c5fd; color: #1d4ed8; }
+  .icon-btn svg { width: 18px; height: 18px; }
+
+  /* ================ Greeting ================ */
+  .greeting { margin-bottom: 32px; }
+  .greeting h2 {
+    font-size: 38px; line-height: 1.15; margin: 0 0 8px; font-weight: 600;
+  }
+  .greeting h2 .accent { color: #1d4ed8; font-style: italic; }
+  .greeting p { margin: 0; color: #475569; font-size: 16px; max-width: 640px; }
+
+  /* ================ Section headings ================ */
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin: 44px 0 18px;
+  }
+  .section-head h3 {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #1e40af; margin: 0; font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-head h3::before {
+    content: ''; width: 28px; height: 2px; background: #1e40af; border-radius: 2px;
+  }
+  .section-head .meta { color: #94a3b8; font-size: 13px; }
+
+  /* ================ Cards (general) ================ */
+  .card {
+    background: white; border: 1px solid #e2e8f0; border-radius: 16px;
+    padding: 22px; transition: all 0.2s ease;
+  }
+  .card:hover {
+    border-color: #93c5fd; box-shadow: 0 12px 28px -16px rgba(30, 64, 175, 0.25);
+    transform: translateY(-2px);
+  }
+  .card .category {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #1d4ed8; margin-bottom: 8px;
+  }
+  .card h4 {
+    font-size: 19px; margin: 0 0 10px; line-height: 1.3; font-weight: 600;
+  }
+  .card p { color: #475569; font-size: 14.5px; margin: 0 0 14px; }
+  .card .meta-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 14px; padding-top: 14px; border-top: 1px solid #f1f5f9;
+    font-size: 12.5px; color: #64748b;
+  }
+  .card .source-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 999px;
+    background: #eff6ff; color: #1e40af; font-weight: 600; font-size: 12px;
+  }
+  .card .source-pill .lean { width: 6px; height: 6px; border-radius: 50%; background: #64748b; }
+  .lean.left { background: #2563eb; }
+  .lean.center { background: #6b7280; }
+  .lean.right { background: #dc2626; }
+  .read-more {
+    color: #1d4ed8; font-weight: 600; font-size: 13px;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .read-more::after { content: '→'; transition: transform 0.15s; }
+  .read-more:hover::after { transform: translateX(3px); }
+
+  /* ================ Featured ================ */
+  .featured.card {
+    padding: 0; overflow: hidden;
+    background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #3b82f6 100%);
+    color: white; border: none; position: relative;
+  }
+  .featured.card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 0%, rgba(255,255,255,0.18), transparent 50%);
+    pointer-events: none;
+  }
+  .featured-content { padding: 36px 38px; position: relative; }
+  .featured .label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 700; color: #bfdbfe; margin-bottom: 16px;
+  }
+  .featured .label svg { width: 14px; height: 14px; }
+  .featured h3.headline {
+    font-size: 34px; line-height: 1.18; margin: 0 0 14px;
+    font-weight: 600; color: white; max-width: 800px;
+  }
+  .featured p.summary {
+    font-size: 16px; color: #dbeafe; max-width: 760px; margin: 0 0 22px;
+  }
+  .featured .meta-row {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    color: #bfdbfe; font-size: 13px;
+  }
+  .featured .source-pill {
+    background: rgba(255,255,255,0.15); color: white;
+  }
+  .featured .read-more { color: white; }
+
+  /* ================ Three-up ================ */
+  .three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 880px) { .three-up { grid-template-columns: 1fr; } }
+
+  /* ================ Two-column ================ */
+  .two-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; }
+  @media (max-width: 880px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ================ Explainer ================ */
+  .explainer.card {
+    background: linear-gradient(135deg, #ffffff, #eff6ff);
+    border-color: #bfdbfe; padding: 28px;
+  }
+  .explainer .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #dbeafe; color: #1e40af; padding: 5px 12px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .explainer h4 { font-size: 22px; margin-bottom: 12px; }
+  .explainer .why-it-matters {
+    margin-top: 16px; padding: 14px 16px; background: white;
+    border-left: 3px solid #1d4ed8; border-radius: 6px;
+    font-size: 14px; color: #334155;
+  }
+  .explainer .why-it-matters strong { color: #1e40af; }
+
+  /* ================ Podcast ================ */
+  .podcast.card {
+    display: flex; gap: 18px; align-items: flex-start;
+    background: linear-gradient(135deg, #f8fafc, #eef4fb);
+  }
+  .podcast .mic {
+    width: 56px; height: 56px; flex-shrink: 0; border-radius: 14px;
+    background: linear-gradient(135deg, #6366f1, #1d4ed8);
+    display: grid; place-items: center; color: white;
+    box-shadow: 0 8px 20px -8px rgba(99, 102, 241, 0.5);
+  }
+  .podcast .mic svg { width: 26px; height: 26px; }
+  .podcast h4 { font-size: 17px; margin-bottom: 4px; }
+  .podcast .show-name {
+    color: #6366f1; font-weight: 600; font-size: 13px; margin-bottom: 8px;
+  }
+
+  /* ================ Source diversity ================ */
+  .diversity-strip {
+    background: white; border: 1px solid #e2e8f0; border-radius: 14px;
+    padding: 18px 22px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .diversity-strip .label-text {
+    font-size: 13px; color: #475569; font-weight: 500;
+  }
+  .diversity-bar {
+    flex: 1; min-width: 200px; height: 8px; border-radius: 4px;
+    background: #f1f5f9; overflow: hidden; display: flex;
+  }
+  .diversity-bar > div { height: 100%; transition: width 0.5s; }
+  .diversity-legend { display: flex; gap: 14px; font-size: 12px; color: #64748b; }
+  .diversity-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .diversity-legend i {
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+  }
+
+  /* ================ Skeleton loaders ================ */
+  .skeleton {
+    background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+    border-radius: 6px;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; } 100% { background-position: -200% 0; }
+  }
+  .skeleton-line { height: 12px; margin: 8px 0; }
+  .skeleton-line.lg { height: 24px; width: 80%; }
+  .skeleton-line.md { width: 60%; }
+
+  /* ================ Onboarding modal ================ */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(4px); z-index: 100;
+    display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.show { display: flex; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+  .modal {
+    background: white; border-radius: 20px; max-width: 640px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 30px 60px -20px rgba(15, 23, 42, 0.3);
+  }
+  .modal-header {
+    padding: 32px 36px 0; position: relative;
+  }
+  .modal-header .step-pill {
+    display: inline-block; padding: 4px 12px; border-radius: 999px;
+    background: #eff6ff; color: #1e40af; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.05em; margin-bottom: 14px;
+  }
+  .modal-header h2 {
+    font-size: 28px; margin: 0 0 8px; line-height: 1.2;
+  }
+  .modal-header p { color: #64748b; margin: 0; font-size: 15px; }
+  .modal-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 36px; height: 36px; border-radius: 10px; color: #94a3b8;
+    display: grid; place-items: center;
+  }
+  .modal-close:hover { background: #f1f5f9; color: #0f172a; }
+  .modal-body { padding: 24px 36px 32px; }
+  .modal-footer {
+    padding: 20px 36px; border-top: 1px solid #f1f5f9;
+    display: flex; justify-content: space-between; align-items: center;
+    background: #fafbfc; border-radius: 0 0 20px 20px;
+  }
+  .progress-dots { display: flex; gap: 6px; }
+  .progress-dots .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0;
+    transition: all 0.2s;
+  }
+  .progress-dots .dot.active { background: #1d4ed8; width: 24px; border-radius: 4px; }
+  .modal-actions { display: flex; gap: 8px; }
+  .btn {
+    padding: 10px 20px; border-radius: 10px; font-weight: 600; font-size: 14px;
+    transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary {
+    background: #1d4ed8; color: white;
+  }
+  .btn-primary:hover { background: #1e40af; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn-ghost { background: transparent; color: #475569; }
+  .btn-ghost:hover { background: #f1f5f9; }
+
+  /* ================ Onboarding form ================ */
+  .step { display: none; animation: slideIn 0.3s ease; }
+  .step.active { display: block; }
+  @keyframes slideIn { from {opacity: 0; transform: translateX(8px);} to {opacity: 1; transform: none;} }
+  .field-label {
+    display: block; font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #0f172a;
+  }
+  .field-help {
+    font-size: 13px; color: #64748b; margin: -8px 0 14px;
+  }
+  .options-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+  }
+  .options-grid.cols-1 { grid-template-columns: 1fr; }
+  .option {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px;
+    cursor: pointer; transition: all 0.15s; font-size: 14px;
+    background: white;
+  }
+  .option:hover { border-color: #93c5fd; background: #f8fbff; }
+  .option.selected {
+    border-color: #1d4ed8; background: #eff6ff; color: #1e40af; font-weight: 600;
+  }
+  .option .check {
+    width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid #cbd5e1;
+    display: grid; place-items: center; flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .option.selected .check {
+    background: #1d4ed8; border-color: #1d4ed8;
+  }
+  .option.selected .check::after {
+    content: ''; width: 6px; height: 10px; border: solid white;
+    border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px);
+  }
+  textarea.field-input, input.field-input {
+    width: 100%; padding: 12px 14px; border-radius: 10px; border: 1.5px solid #e2e8f0;
+    font-family: inherit; font-size: 14px; resize: vertical;
+    transition: border-color 0.15s;
+  }
+  textarea.field-input:focus, input.field-input:focus {
+    outline: none; border-color: #1d4ed8;
+  }
+
+  /* ================ Chatbot ================ */
+  .chat-fab {
+    position: fixed; bottom: 28px; right: 28px; z-index: 50;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    color: white; box-shadow: 0 12px 28px -8px rgba(30, 64, 175, 0.5);
+    display: grid; place-items: center;
+    transition: all 0.2s;
+  }
+  .chat-fab:hover { transform: scale(1.05); box-shadow: 0 14px 32px -8px rgba(30, 64, 175, 0.6); }
+  .chat-fab svg { width: 26px; height: 26px; }
+
+  .chat-panel {
+    position: fixed; bottom: 100px; right: 28px; z-index: 50;
+    width: 400px; max-width: calc(100vw - 40px);
+    height: 560px; max-height: calc(100vh - 140px);
+    background: white; border-radius: 18px;
+    box-shadow: 0 30px 60px -20px rgba(15, 23, 42, 0.3);
+    display: none; flex-direction: column; overflow: hidden;
+    border: 1px solid #e2e8f0;
+  }
+  .chat-panel.open { display: flex; animation: chatIn 0.25s ease; }
+  @keyframes chatIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: none;} }
+  .chat-header {
+    padding: 16px 20px; border-bottom: 1px solid #f1f5f9;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(135deg, #1e3a8a, #1d4ed8); color: white;
+  }
+  .chat-header .title { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+  .chat-header .title-icon {
+    width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.15);
+    display: grid; place-items: center;
+  }
+  .chat-header .title h4 { margin: 0; font-size: 15px; font-family: 'Inter', sans-serif; }
+  .chat-header .title p { margin: 0; font-size: 11px; color: #bfdbfe; }
+  .chat-header button { color: white; opacity: 0.8; }
+  .chat-header button:hover { opacity: 1; }
+
+  .chat-messages {
+    flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px;
+    background: #fafbfc;
+  }
+  .chat-msg {
+    max-width: 85%; padding: 10px 14px; border-radius: 14px;
+    font-size: 14px; line-height: 1.45; animation: msgIn 0.2s ease;
+  }
+  @keyframes msgIn { from {opacity: 0; transform: translateY(4px);} to {opacity: 1; transform: none;} }
+  .chat-msg.user {
+    align-self: flex-end; background: #1d4ed8; color: white;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-msg.bot {
+    align-self: flex-start; background: white; color: #0f172a;
+    border: 1px solid #e2e8f0; border-bottom-left-radius: 4px;
+  }
+  .chat-msg.bot.thinking { color: #94a3b8; font-style: italic; }
+  .chat-msg.bot strong { color: #1e40af; }
+  .chat-suggestions { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 16px 8px; background: #fafbfc; }
+  .chat-suggestions button {
+    font-size: 12px; padding: 6px 11px; border-radius: 999px;
+    background: #eff6ff; color: #1e40af; font-weight: 500;
+    border: 1px solid #dbeafe; transition: all 0.15s;
+  }
+  .chat-suggestions button:hover { background: #dbeafe; }
+  .chat-input-row {
+    padding: 12px; display: flex; gap: 8px; border-top: 1px solid #f1f5f9; background: white;
+  }
+  .chat-input-row input {
+    flex: 1; padding: 10px 14px; border-radius: 10px; border: 1.5px solid #e2e8f0;
+    font-family: inherit; font-size: 14px;
+  }
+  .chat-input-row input:focus { outline: none; border-color: #1d4ed8; }
+  .chat-input-row button {
+    padding: 10px 16px; border-radius: 10px; background: #1d4ed8; color: white;
+    font-weight: 600; font-size: 14px;
+  }
+  .chat-input-row button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ================ Footer ================ */
+  footer.bottom {
+    margin-top: 60px; padding-top: 28px; border-top: 1px solid #e2e8f0;
+    text-align: center; color: #94a3b8; font-size: 13px;
+  }
+  footer.bottom p { margin: 4px 0; }
+
+  /* ================ Error state ================ */
+  .error-banner {
+    background: #fef3c7; border: 1px solid #fcd34d; color: #92400e;
+    padding: 14px 18px; border-radius: 12px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px; font-size: 14px;
+  }
+  .error-banner button {
+    margin-left: auto; padding: 6px 12px; background: #92400e; color: white;
+    border-radius: 6px; font-size: 13px; font-weight: 600;
+  }
+  .error-banner.info {
+    background: #eff6ff; border-color: #bfdbfe; color: #1e3a8a;
+  }
+  .error-banner.info button { background: #1d4ed8; }
+
+  /* ================ Toast ================ */
+  .toast {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+    background: #0f172a; color: white; padding: 12px 20px; border-radius: 10px;
+    font-size: 14px; z-index: 200; opacity: 0; transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+
+  @media (max-width: 600px) {
+    .app { padding: 20px 18px 80px; }
+    .greeting h2 { font-size: 28px; }
+    .featured-content { padding: 26px 24px; }
+    .featured h3.headline { font-size: 24px; }
+    .modal-header, .modal-body { padding-left: 24px; padding-right: 24px; }
+    .modal-footer { padding-left: 24px; padding-right: 24px; }
+    .options-grid { grid-template-columns: 1fr; }
+    .chat-panel { right: 12px; left: 12px; width: auto; }
+    .chat-fab { right: 18px; bottom: 18px; }
+  }
+
+  /* ================ STREAK CHIP ================ */
+  .streak-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 13px; border-radius: 10px;
+    background: linear-gradient(135deg, #fff7ed, #ffedd5);
+    border: 1px solid #fed7aa; color: #c2410c;
+    font-weight: 700; font-size: 13px; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .streak-chip:hover { transform: translateY(-1px); box-shadow: 0 6px 14px -6px rgba(194, 65, 12, 0.4); }
+  .streak-chip svg { width: 15px; height: 15px; }
+  .streak-chip .num { color: #9a3412; }
+
+  .saved-chip-btn {
+    position: relative;
+  }
+  .saved-chip-btn .badge {
+    position: absolute; top: -4px; right: -4px;
+    min-width: 18px; height: 18px; border-radius: 9px;
+    background: #dc2626; color: white; font-size: 10px; font-weight: 700;
+    display: grid; place-items: center; padding: 0 4px;
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.4);
+  }
+  .saved-chip-btn .badge.hidden { display: none; }
+
+  /* ================ CARD ACTIONS ================ */
+  .source-pill { cursor: pointer; user-select: none; }
+  .source-pill:hover { background: #dbeafe; }
+  .featured .source-pill:hover { background: rgba(255,255,255,0.25); }
+
+  .card-actions {
+    display: flex; flex-wrap: wrap; gap: 4px; margin-top: 14px; padding-top: 14px;
+    border-top: 1px solid #f1f5f9;
+  }
+  .card-action {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 7px 10px; border-radius: 8px;
+    font-size: 12.5px; font-weight: 600; color: #64748b;
+    transition: all 0.15s; background: transparent; border: none;
+    cursor: pointer; text-decoration: none;
+    font-family: inherit;
+  }
+  .card-action:hover { background: #eff6ff; color: #1d4ed8; text-decoration: none; }
+  .card-action.active { background: #dbeafe; color: #1e40af; }
+  .card-action svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .card-action.read-btn { margin-left: auto; color: #1d4ed8; }
+  .card-action.read-btn:hover { background: #1d4ed8; color: white; }
+
+  /* Featured card-actions */
+  .featured .card-actions { border-top-color: rgba(255,255,255,0.18); }
+  .featured .card-action { color: #bfdbfe; }
+  .featured .card-action:hover { background: rgba(255,255,255,0.18); color: white; }
+  .featured .card-action.active { background: rgba(255,255,255,0.28); color: white; }
+  .featured .card-action.read-btn { color: white; background: rgba(255,255,255,0.15); }
+  .featured .card-action.read-btn:hover { background: white; color: #1e40af; }
+
+  /* ================ AUDIO PLAYER ================ */
+  .audio-player {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+    background: white; border-radius: 18px;
+    box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.35);
+    padding: 12px 16px 12px 12px; display: none;
+    align-items: center; gap: 14px;
+    border: 1px solid #e2e8f0; z-index: 60; max-width: 90vw;
+  }
+  .audio-player.show { display: flex; animation: chatIn 0.25s ease; }
+  .audio-player .play-btn {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6); color: white;
+    display: grid; place-items: center; cursor: pointer;
+    box-shadow: 0 6px 16px -4px rgba(30, 64, 175, 0.45);
+    border: none; flex-shrink: 0;
+  }
+  .audio-player .play-btn:hover { transform: scale(1.05); }
+  .audio-player .play-btn svg { width: 18px; height: 18px; }
+  .audio-player .now-playing {
+    font-size: 13px; color: #475569; min-width: 0; flex: 1;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .audio-player .now-playing strong { color: #0f172a; font-weight: 700; }
+  .audio-player .progress {
+    width: 130px; height: 5px; background: #e2e8f0; border-radius: 3px;
+    overflow: hidden;
+  }
+  .audio-player .progress > div {
+    height: 100%; background: linear-gradient(90deg, #1d4ed8, #3b82f6); transition: width 0.3s;
+  }
+  .audio-player .stop-btn {
+    width: 32px; height: 32px; border-radius: 8px; color: #94a3b8;
+    display: grid; place-items: center; cursor: pointer;
+    background: transparent; border: none;
+  }
+  .audio-player .stop-btn:hover { background: #fef2f2; color: #dc2626; }
+  .audio-player .stop-btn svg { width: 16px; height: 16px; }
+
+  @media (max-width: 600px) {
+    .audio-player .progress { display: none; }
+    .audio-player .now-playing { max-width: 140px; }
+  }
+
+  /* ================ DRAWER (SAVED ARTICLES) ================ */
+  .drawer-overlay {
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(4px); z-index: 110;
+    display: none; opacity: 0; transition: opacity 0.25s;
+  }
+  .drawer-overlay.show { display: block; opacity: 1; }
+  .drawer {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: 460px; max-width: 100vw;
+    background: white; z-index: 120;
+    transform: translateX(100%); transition: transform 0.3s ease;
+    display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: -20px 0 60px -10px rgba(15, 23, 42, 0.3);
+  }
+  .drawer.show { transform: translateX(0); }
+  .drawer-header {
+    padding: 22px 24px; border-bottom: 1px solid #e2e8f0;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(135deg, #f8fbff, #eef4fb);
+  }
+  .drawer-header h3 { font-size: 22px; margin: 0; }
+  .drawer-header p { margin: 2px 0 0; font-size: 13px; color: #64748b; }
+  .drawer-header .close-btn {
+    width: 36px; height: 36px; border-radius: 10px; color: #475569;
+    display: grid; place-items: center; background: transparent; border: none; cursor: pointer;
+  }
+  .drawer-header .close-btn:hover { background: white; color: #0f172a; }
+  .drawer-header .close-btn svg { width: 18px; height: 18px; }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 16px 24px 24px; }
+  .drawer-empty {
+    text-align: center; padding: 80px 20px 60px; color: #94a3b8;
+  }
+  .drawer-empty svg { width: 56px; height: 56px; opacity: 0.4; margin-bottom: 14px; }
+  .drawer-empty h4 { color: #475569; font-size: 17px; margin: 0 0 6px; }
+  .drawer-empty p { margin: 0; font-size: 14px; line-height: 1.5; }
+  .saved-item {
+    padding: 16px; border: 1px solid #e2e8f0; border-radius: 14px;
+    margin-bottom: 12px; transition: border-color 0.15s; background: white;
+  }
+  .saved-item:hover { border-color: #93c5fd; }
+  .saved-item .saved-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: #94a3b8; margin-bottom: 8px;
+    font-weight: 600; letter-spacing: 0.02em;
+  }
+  .saved-item .saved-meta .lean-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    margin-right: 4px; vertical-align: middle;
+  }
+  .saved-item h4 { font-size: 15px; margin: 0 0 6px; line-height: 1.3; }
+  .saved-item p { font-size: 13.5px; color: #64748b; margin: 0 0 10px; }
+  .saved-item textarea {
+    width: 100%; padding: 8px 10px; font-size: 13px;
+    border-radius: 8px; border: 1px solid #e2e8f0; resize: vertical;
+    font-family: inherit; min-height: 40px;
+    background: #fafbfc;
+  }
+  .saved-item textarea:focus { outline: none; border-color: #1d4ed8; background: white; }
+  .saved-item .saved-actions {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 10px;
+  }
+  .saved-item .saved-actions a {
+    font-size: 13px; font-weight: 700; color: #1d4ed8; text-decoration: none;
+  }
+  .saved-item .remove-btn {
+    color: #b91c1c; font-size: 12px; font-weight: 600;
+    background: none; padding: 5px 10px; border-radius: 6px;
+    cursor: pointer; border: none;
+  }
+  .saved-item .remove-btn:hover { background: #fef2f2; }
+
+  /* ================ STATS MODAL ================ */
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    padding: 18px; background: #f8fbff; border: 1px solid #e2e8f0;
+    border-radius: 12px;
+  }
+  .stat-card .stat-label {
+    font-size: 11px; font-weight: 700; color: #64748b;
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .stat-card .stat-value {
+    font-size: 32px; font-weight: 700; color: #1e40af;
+    font-family: 'Fraunces', serif; line-height: 1;
+  }
+  .stat-card .stat-sub { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+  .stat-card.streak { background: linear-gradient(135deg, #fff7ed, #ffedd5); border-color: #fed7aa; }
+  .stat-card.streak .stat-value { color: #c2410c; }
+  .stat-card.streak .stat-label { color: #9a3412; }
+  .topic-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .topic-chip {
+    background: #eff6ff; color: #1e40af; padding: 5px 11px;
+    border-radius: 999px; font-size: 12px; font-weight: 600;
+  }
+  .calendar-strip { display: flex; gap: 5px; margin-top: 10px; flex-wrap: wrap; }
+  .cal-day {
+    width: 32px; height: 32px; border-radius: 8px; background: #f1f5f9;
+    display: grid; place-items: center; font-size: 11px; color: #94a3b8;
+    font-weight: 700; position: relative;
+  }
+  .cal-day.visited { background: #1d4ed8; color: white; box-shadow: 0 2px 6px -2px rgba(30, 64, 175, 0.4); }
+  .cal-day.today { outline: 2px solid #f97316; outline-offset: 2px; }
+  .stats-section-label {
+    font-size: 12px; font-weight: 700; color: #64748b;
+    letter-spacing: 0.08em; text-transform: uppercase; margin: 16px 0 8px;
+  }
+
+  /* ================ SOURCE POPOVER ================ */
+  .popover-overlay {
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(4px); z-index: 130;
+    display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .popover-overlay.show { display: flex; animation: fadeIn 0.2s; }
+  .source-popover {
+    background: white; border-radius: 18px; max-width: 460px; width: 100%;
+    box-shadow: 0 30px 60px -10px rgba(15, 23, 42, 0.3);
+    overflow: hidden;
+  }
+  .source-popover .pop-header {
+    padding: 22px 26px 18px; background: linear-gradient(135deg, #f8fbff, #eef4fb);
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .source-popover h3 { margin: 0 0 8px; font-size: 24px; }
+  .source-popover .pop-lean {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 999px; font-size: 12px;
+    font-weight: 600; background: white; border: 1px solid #e2e8f0;
+    color: #334155;
+  }
+  .source-popover .pop-lean .lean {
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+  }
+  .source-popover .pop-body { padding: 18px 26px; }
+  .source-popover .pop-row {
+    display: flex; padding: 9px 0; border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+  }
+  .source-popover .pop-row:last-child { border: none; }
+  .source-popover .pop-row .label-text {
+    width: 110px; color: #64748b; font-weight: 600; font-size: 13px;
+    flex-shrink: 0;
+  }
+  .source-popover .pop-row .val { color: #0f172a; flex: 1; }
+  .source-popover .pop-row.about { display: block; }
+  .source-popover .pop-row.about .label-text { display: block; margin-bottom: 6px; }
+  .source-popover .pop-footer {
+    padding: 14px 26px; background: #fafbfc;
+    text-align: right; border-top: 1px solid #f1f5f9;
+  }
+
+  /* ================ ACROSS THE AISLE ================ */
+  .modal.modal-wide { max-width: 800px; }
+  .aisle-grid {
+    display: grid; grid-template-columns: 1fr; gap: 14px;
+  }
+  .aisle-source-card {
+    padding: 20px; border-radius: 14px; border: 1.5px solid #e2e8f0;
+    position: relative;
+  }
+  .aisle-source-card.left { border-left: 5px solid #2563eb; background: linear-gradient(90deg, #eff6ff, white 40%); }
+  .aisle-source-card.center { border-left: 5px solid #6b7280; background: linear-gradient(90deg, #f8fafc, white 40%); }
+  .aisle-source-card.right { border-left: 5px solid #dc2626; background: linear-gradient(90deg, #fef2f2, white 40%); }
+  .aisle-source-card .lean-tag {
+    display: inline-block; padding: 4px 11px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .aisle-source-card.left .lean-tag { background: #dbeafe; color: #1e40af; }
+  .aisle-source-card.center .lean-tag { background: #f1f5f9; color: #475569; }
+  .aisle-source-card.right .lean-tag { background: #fee2e2; color: #991b1b; }
+  .aisle-source-card h4 { font-size: 17px; margin: 0 0 8px; line-height: 1.3; }
+  .aisle-source-card p { color: #475569; font-size: 14px; margin: 0 0 12px; line-height: 1.55; }
+  .aisle-source-card .src-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 12px; border-top: 1px solid #f1f5f9;
+    font-size: 13px;
+  }
+  .aisle-source-card .src-link strong { color: #0f172a; }
+  .aisle-source-card .src-link a { color: #1d4ed8; font-weight: 600; text-decoration: none; }
+  .aisle-source-card .src-link a:hover { text-decoration: underline; }
+
+  .aisle-insight {
+    margin-top: 18px; padding: 16px 18px; background: #eff6ff;
+    border-left: 4px solid #1d4ed8; border-radius: 8px;
+    font-size: 14px; color: #1e3a8a; line-height: 1.55;
+  }
+  .aisle-insight strong { color: #1e40af; }
+
+  .aisle-loading, .source-loading {
+    text-align: center; padding: 50px 20px; color: #64748b;
+  }
+  .aisle-loading .spinner, .source-loading .spinner {
+    width: 36px; height: 36px; border: 3px solid #e2e8f0;
+    border-top-color: #1d4ed8; border-radius: 50%;
+    margin: 0 auto 14px; animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ================ API KEY STATUS BOX ================ */
+  .key-status-box {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px; background: #f8fbff;
+    border: 1px solid #e2e8f0; border-radius: 12px;
+  }
+  .key-status-box.using-own { background: #ecfdf5; border-color: #a7f3d0; }
+  .key-status-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #cbd5e1; color: white; font-size: 16px;
+    display: grid; place-items: center; flex-shrink: 0;
+  }
+  .key-status-box.using-own .key-status-icon { background: #059669; }
+  .key-status-label {
+    font-size: 11px; font-weight: 700; color: #64748b;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .key-status-value { font-size: 15px; font-weight: 600; color: #0f172a; }
+  .key-status-box.using-own .key-status-value { color: #065f46; }
+
+  .key-test-result {
+    margin-top: 12px; padding: 10px 14px; border-radius: 8px;
+    font-size: 13px; display: none;
+  }
+  .key-test-result.ok {
+    background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; display: block;
+  }
+  .key-test-result.error {
+    background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; display: block;
+  }
+  .key-test-result.loading {
+    background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; display: block;
+  }
+
+  /* Listen-here button in header */
+  .listen-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 14px; border-radius: 10px;
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6); color: white;
+    font-weight: 700; font-size: 13px; border: none; cursor: pointer;
+    box-shadow: 0 4px 12px -4px rgba(30, 64, 175, 0.4);
+    transition: all 0.15s;
+  }
+  .listen-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px -4px rgba(30, 64, 175, 0.5); }
+  .listen-btn svg { width: 14px; height: 14px; }
+  @media (max-width: 600px) {
+    .listen-btn .label-text { display: none; }
+    .streak-chip .label-text { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ============ Top header ============ -->
+  <header class="top">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          <path d="M8 7h8M8 11h8M8 15h5"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>The Daily Dose</h1>
+        <p><span id="dateString">—</span><span class="dot">●</span>Personalized briefing</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="streak-chip" id="streakChip" title="Your reading streak">
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+        <span class="num" id="streakNum">0</span><span class="label-text">day streak</span>
+      </button>
+      <button class="listen-btn" id="listenBtn" title="Listen to your briefing">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        <span class="label-text">Listen</span>
+      </button>
+      <button class="icon-btn saved-chip-btn" id="savedBtn" title="Saved articles" aria-label="Saved">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        </svg>
+        <span class="badge hidden" id="savedCountBadge">0</span>
+      </button>
+      <button class="icon-btn" id="statsBtn" title="Your stats" aria-label="Stats">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="apiKeyBtn" title="API key settings" aria-label="API key">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="refreshBtn" title="Refresh today's briefing" aria-label="Refresh">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/>
+          <path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="settingsBtn" title="Edit preferences" aria-label="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ Greeting ============ -->
+  <div class="greeting">
+    <h2 id="greetingHeadline">Welcome to <span class="accent">your</span> briefing.</h2>
+    <p id="greetingSub">Here's what we picked for you today, based on what you care about.</p>
+  </div>
+
+  <!-- ============ Error banner (hidden unless needed) ============ -->
+  <div id="errorBanner" class="error-banner" style="display:none;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:18px;height:18px;flex-shrink:0">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <span id="errorMessage">Couldn't fetch live news right now.</span>
+    <button id="retryBtn">Retry</button>
+  </div>
+
+  <!-- ============ Source diversity ============ -->
+  <div class="diversity-strip" id="diversityStrip" style="display:none;">
+    <span class="label-text">Today's source mix</span>
+    <div class="diversity-bar" id="diversityBar"></div>
+    <div class="diversity-legend">
+      <span><i style="background:#2563eb"></i>Left-leaning</span>
+      <span><i style="background:#6b7280"></i>Center</span>
+      <span><i style="background:#dc2626"></i>Right-leaning</span>
+    </div>
+  </div>
+
+  <!-- ============ Featured story ============ -->
+  <div class="section-head">
+    <h3>Featured story</h3>
+    <span class="meta">Hand-picked for your interests</span>
+  </div>
+  <div id="featuredContainer">
+    <!-- Skeleton -->
+    <div class="card featured" style="background: linear-gradient(135deg, #cbd5e1, #94a3b8);">
+      <div class="featured-content">
+        <div class="skeleton skeleton-line md" style="background: rgba(255,255,255,0.3); margin-bottom: 18px;"></div>
+        <div class="skeleton skeleton-line lg" style="background: rgba(255,255,255,0.4); height: 32px;"></div>
+        <div class="skeleton skeleton-line" style="background: rgba(255,255,255,0.3);"></div>
+        <div class="skeleton skeleton-line md" style="background: rgba(255,255,255,0.3);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Top three ============ -->
+  <div class="section-head">
+    <h3>What you need to know today</h3>
+    <span class="meta">3 essential stories</span>
+  </div>
+  <div id="topThreeContainer" class="three-up">
+    <div class="card"><div class="skeleton skeleton-line md"></div><div class="skeleton skeleton-line lg"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line"></div></div>
+    <div class="card"><div class="skeleton skeleton-line md"></div><div class="skeleton skeleton-line lg"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line"></div></div>
+    <div class="card"><div class="skeleton skeleton-line md"></div><div class="skeleton skeleton-line lg"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line"></div></div>
+  </div>
+
+  <!-- ============ Pick for you + explainer ============ -->
+  <div class="section-head">
+    <h3>Going deeper</h3>
+    <span class="meta">Picked for you · Explainer</span>
+  </div>
+  <div class="two-col">
+    <div id="pickForYouContainer">
+      <div class="card"><div class="skeleton skeleton-line md"></div><div class="skeleton skeleton-line lg"></div><div class="skeleton skeleton-line"></div></div>
+    </div>
+    <div id="explainerContainer">
+      <div class="card explainer"><div class="skeleton skeleton-line md"></div><div class="skeleton skeleton-line lg"></div><div class="skeleton skeleton-line"></div></div>
+    </div>
+  </div>
+
+  <!-- ============ Podcast ============ -->
+  <div class="section-head">
+    <h3>Listen on the go</h3>
+    <span class="meta">Podcast pick of the day</span>
+  </div>
+  <div id="podcastContainer">
+    <div class="card podcast"><div class="skeleton skeleton-line md"></div><div class="skeleton skeleton-line lg"></div></div>
+  </div>
+
+  <footer class="bottom">
+    <p><strong>The Daily Dose</strong> · A DCS final project · AI in the World</p>
+    <p>Briefings generated using Gemini with Google Search · Sources include NYT, WSJ, Reuters, AP, BBC, NPR, The Atlantic, The Washington Post, The Guardian, and others.</p>
+  </footer>
+</div>
+
+<!-- ============ Onboarding modal ============ -->
+<div class="modal-overlay" id="onboardingModal">
+  <div class="modal" role="dialog" aria-labelledby="onboardingTitle">
+    <div class="modal-header">
+      <span class="step-pill" id="stepPill">Step 1 of 5</span>
+      <h2 id="onboardingTitle">Let's tailor your briefing.</h2>
+      <p id="onboardingSubtitle">A few quick questions so we can serve you news that actually matters to you.</p>
+      <button class="modal-close" id="closeOnboardingBtn" title="Close" aria-label="Close" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:18px;height:18px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Step 1: Motivation -->
+      <div class="step active" data-step="1">
+        <label class="field-label">What brought you here today?</label>
+        <p class="field-help">Pick whatever feels closest. (Choose one.)</p>
+        <div class="options-grid cols-1" data-field="motivation" data-multi="false">
+          <div class="option" data-value="out_of_loop"><div class="check"></div>I feel out of the loop and want to catch up</div>
+          <div class="option" data-value="reliable_sources"><div class="check"></div>I want to be pointed toward reliable sources</div>
+          <div class="option" data-value="work"><div class="check"></div>I need to stay informed for work or school</div>
+          <div class="option" data-value="curious"><div class="check"></div>I'm just curious and want a smart daily read</div>
+          <div class="option" data-value="ditch_socials"><div class="check"></div>I want to stop getting my news from social media</div>
+        </div>
+      </div>
+
+      <!-- Step 2: Current sources -->
+      <div class="step" data-step="2">
+        <label class="field-label">Where do you usually get your news right now?</label>
+        <p class="field-help">Select all that apply.</p>
+        <div class="options-grid" data-field="currentSources" data-multi="true">
+          <div class="option" data-value="social_media"><div class="check"></div>Social media (TikTok, Instagram, X)</div>
+          <div class="option" data-value="news_sites"><div class="check"></div>News websites</div>
+          <div class="option" data-value="podcasts"><div class="check"></div>Podcasts</div>
+          <div class="option" data-value="newsletters"><div class="check"></div>Email newsletters</div>
+          <div class="option" data-value="tv"><div class="check"></div>TV news</div>
+          <div class="option" data-value="friends_family"><div class="check"></div>Friends &amp; family</div>
+          <div class="option" data-value="reddit"><div class="check"></div>Reddit / forums</div>
+          <div class="option" data-value="rarely"><div class="check"></div>Honestly, I rarely follow news</div>
+        </div>
+      </div>
+
+      <!-- Step 3: Areas of interest -->
+      <div class="step" data-step="3">
+        <label class="field-label">What topics are you most interested in?</label>
+        <p class="field-help">Pick a few — these will shape your featured story and "picked for you."</p>
+        <div class="options-grid" data-field="interests" data-multi="true">
+          <div class="option" data-value="politics_policy"><div class="check"></div>Politics &amp; policy</div>
+          <div class="option" data-value="climate"><div class="check"></div>Climate &amp; environment</div>
+          <div class="option" data-value="tech_ai"><div class="check"></div>Tech &amp; AI</div>
+          <div class="option" data-value="economy"><div class="check"></div>Economy &amp; business</div>
+          <div class="option" data-value="world_affairs"><div class="check"></div>World affairs</div>
+          <div class="option" data-value="health"><div class="check"></div>Health &amp; science</div>
+          <div class="option" data-value="culture_arts"><div class="check"></div>Culture &amp; the arts</div>
+          <div class="option" data-value="sports"><div class="check"></div>Sports</div>
+          <div class="option" data-value="education"><div class="check"></div>Education</div>
+          <div class="option" data-value="social_issues"><div class="check"></div>Social issues</div>
+        </div>
+      </div>
+
+      <!-- Step 4: Less familiar -->
+      <div class="step" data-step="4">
+        <label class="field-label">What topics do you wish you understood better?</label>
+        <p class="field-help">We'll send you a plain-language explainer on one of these each day.</p>
+        <div class="options-grid" data-field="lessFamiliar" data-multi="true">
+          <div class="option" data-value="markets"><div class="check"></div>Global markets &amp; finance</div>
+          <div class="option" data-value="geopolitics"><div class="check"></div>Geopolitics</div>
+          <div class="option" data-value="ai_tech"><div class="check"></div>AI &amp; emerging tech</div>
+          <div class="option" data-value="legal"><div class="check"></div>Court cases &amp; legal issues</div>
+          <div class="option" data-value="energy"><div class="check"></div>Energy policy</div>
+          <div class="option" data-value="health_policy"><div class="check"></div>Health policy</div>
+          <div class="option" data-value="immigration"><div class="check"></div>Immigration policy</div>
+          <div class="option" data-value="science"><div class="check"></div>Science research</div>
+        </div>
+      </div>
+
+      <!-- Step 5: Political balance -->
+      <div class="step" data-step="5">
+        <label class="field-label">Your preference for political balance? <span style="color:#94a3b8;font-weight:400">(Optional)</span></label>
+        <p class="field-help">Either way, we'll always include a mix from reputable sources across the spectrum.</p>
+        <div class="options-grid cols-1" data-field="political" data-multi="false">
+          <div class="option" data-value="balanced"><div class="check"></div>Balanced — show me a healthy mix</div>
+          <div class="option" data-value="lean_left"><div class="check"></div>I lean left, but want to see other views too</div>
+          <div class="option" data-value="lean_right"><div class="check"></div>I lean right, but want to see other views too</div>
+          <div class="option" data-value="center"><div class="check"></div>I prefer center / non-partisan reporting</div>
+          <div class="option" data-value="skip"><div class="check"></div>Prefer not to say</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div class="progress-dots">
+          <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <button class="btn btn-ghost" id="startOverBtn" style="display:none;color:#b91c1c;padding:6px 10px;font-size:13px;" title="Clear preferences and start the setup over">↺ Start over</button>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="backStepBtn" style="visibility:hidden;">Back</button>
+        <button class="btn btn-primary" id="nextStepBtn" disabled>Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ API Key Modal ============ -->
+<div class="modal-overlay" id="apiKeyOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="step-pill" style="background:#dbeafe;color:#1e40af">🔑 API Key</span>
+      <h2>Use your own Gemini key</h2>
+      <p>Optional — supply your own free key so you get your own quota and rate limits.</p>
+      <button class="modal-close" id="closeApiKeyBtn" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:18px;height:18px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="key-status-box" id="keyStatusBox">
+        <div class="key-status-icon" id="keyStatusIcon">●</div>
+        <div>
+          <div class="key-status-label">Currently using</div>
+          <div class="key-status-value" id="keyStatusValue">Embedded default key</div>
+        </div>
+      </div>
+
+      <label class="field-label" style="margin-top:18px">Your Gemini API key</label>
+      <p class="field-help">
+        Get a free key in 30 seconds at <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" style="font-weight:600">aistudio.google.com/apikey</a>. No credit card needed — Google's free tier gives you generous quota for personal projects.
+      </p>
+      <div style="display:flex;gap:6px;align-items:stretch">
+        <input type="password" class="field-input" id="apiKeyInput" placeholder="AIzaSy..." autocomplete="off" spellcheck="false" style="flex:1;font-family:'SFMono-Regular',Menlo,monospace;font-size:13px" />
+        <button class="icon-btn" id="toggleKeyVisibilityBtn" title="Show/hide key" type="button" style="width:40px;height:auto;flex-shrink:0">
+          <svg id="eyeShownIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg id="eyeHiddenIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </button>
+      </div>
+      <div id="apiKeyTestResult" class="key-test-result"></div>
+      <div style="margin-top:16px;padding:12px 14px;background:#f8fbff;border:1px solid #e2e8f0;border-radius:10px;font-size:12.5px;color:#475569;line-height:1.5">
+        <strong style="color:#0f172a">Privacy note:</strong> Your key is stored only in your browser's localStorage and is sent directly to Google's API. It's never sent anywhere else. To delete it, click "Reset to default" below or use "Reset everything" in Stats.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="clearKeyBtn" style="color:#b91c1c;font-size:13px">Reset to default</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" id="testKeyBtn">Test key</button>
+        <button class="btn btn-primary" id="saveKeyBtn" disabled>Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Across the Aisle Modal ============ -->
+<div class="modal-overlay" id="aisleOverlay">
+  <div class="modal modal-wide">
+    <div class="modal-header">
+      <span class="step-pill" style="background:#fef2f2;color:#991b1b">⚖️ Across the Aisle</span>
+      <h2 id="aisleTitle">Comparing coverage…</h2>
+      <p>How does this story look from different points on the political spectrum?</p>
+      <button class="modal-close" id="closeAisleBtn" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:18px;height:18px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="aisleBody">
+      <div class="aisle-loading"><div class="spinner"></div>Finding how different outlets are covering this story…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Source Spotlight Popover ============ -->
+<div class="popover-overlay" id="popoverOverlay">
+  <div class="source-popover" id="sourcePopover"></div>
+</div>
+
+<!-- ============ Stats Modal ============ -->
+<div class="modal-overlay" id="statsOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="step-pill" style="background:#ffedd5;color:#c2410c">📊 Your stats</span>
+      <h2>Your reading journey</h2>
+      <p>Track your habits and the topics you've explored.</p>
+      <button class="modal-close" id="closeStatsBtn" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:18px;height:18px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="statsBody"></div>
+    <div class="modal-footer" style="justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <button class="btn btn-ghost" id="resetAllBtn" style="color:#b91c1c;font-size:13px" title="Wipe all your data and start fresh">⚠️ Reset everything</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" id="resetStatsBtn">Reset stats only</button>
+        <button class="btn btn-primary" id="closeStatsBtn2">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Saved Articles Drawer ============ -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="savedDrawer" role="dialog">
+  <div class="drawer-header">
+    <div>
+      <h3>Saved articles</h3>
+      <p><span id="savedCountText">0</span> articles in your list</p>
+    </div>
+    <button class="close-btn" id="closeDrawerBtn" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="savedDrawerBody"></div>
+</div>
+
+<!-- ============ Audio Player (floating, bottom-center) ============ -->
+<div class="audio-player" id="audioPlayer">
+  <button class="play-btn" id="playPauseBtn" aria-label="Play/Pause">
+    <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+  </button>
+  <div class="now-playing" id="audioLabel"><strong>Loading…</strong></div>
+  <div class="progress"><div id="audioProgress" style="width:0%"></div></div>
+  <button class="stop-btn" id="stopAudioBtn" aria-label="Stop">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+</div>
+
+<!-- ============ Chatbot FAB & Panel ============ -->
+<button class="chat-fab" id="chatFab" title="Ask The Daily Dose" aria-label="Open chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<div class="chat-panel" id="chatPanel" role="dialog">
+  <div class="chat-header">
+    <div class="title">
+      <div class="title-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </div>
+      <div>
+        <h4>Ask The Daily Dose</h4>
+        <p>Powered by Gemini · Ask about any story</p>
+      </div>
+    </div>
+    <button id="closeChatBtn" aria-label="Close chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:18px;height:18px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg bot">Hi! 👋 I can answer questions about today's stories, explain background context, or help you understand a topic. What would you like to know?</div>
+  </div>
+  <div class="chat-suggestions" id="chatSuggestions">
+    <button data-q="Summarize today's briefing in 3 bullet points">Summarize today</button>
+    <button data-q="Why does the explainer story matter?">Why this matters</button>
+    <button data-q="Give me more context on the featured story">More context</button>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="Ask about today's news…" autocomplete="off" />
+    <button id="chatSendBtn">Send</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   The Daily Dose — Personalized News Dashboard
+   Built for DCS Final · AI in the World
+   ============================================================ */
+
+// NOTE: API key embedded per project requirements. For production,
+// this should live behind a backend proxy. Rotate this key in your
+// Google AI Studio account when finished with the project.
+// Users can supply their own key via the 🔑 button to use their own quota.
+const EMBEDDED_API_KEY = "AIzaSyAqg8o16gW4wvGkQKfH-SYJylokyCtHQy0";
+const GEMINI_MODEL = "gemini-2.5-flash";
+const API_KEY_STORAGE = "dailyDose_apiKey_v2";
+
+function getApiKey() {
+  try { return localStorage.getItem(API_KEY_STORAGE) || EMBEDDED_API_KEY; }
+  catch(e) { return EMBEDDED_API_KEY; }
+}
+function isUsingUserKey() {
+  try { return !!localStorage.getItem(API_KEY_STORAGE); }
+  catch(e) { return false; }
+}
+function getGeminiEndpoint() {
+  return `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${getApiKey()}`;
+}
+
+const STORAGE_KEY = "dailyDose_preferences_v2";
+const CACHE_KEY  = "dailyDose_cachedBriefing_v2";
+
+// ============================================================
+// Gemini API helper with retries + better error classification
+// ============================================================
+async function geminiCall(body, options = {}) {
+  const { retries = 3, baseDelay = 1200, onRetry = null, fallbackBody = null } = options;
+  let lastErr;
+
+  // Phase 1: Try the primary body (usually with google_search tool) with retries
+  for (let attempt = 0; attempt < retries; attempt++) {
+    if (attempt > 0) {
+      const delay = baseDelay * Math.pow(2.2, attempt - 1); // ~1.2s, 2.6s, 5.8s
+      if (onRetry) onRetry(attempt, delay);
+      await new Promise(r => setTimeout(r, delay));
+    }
+    try {
+      const r = await fetch(getGeminiEndpoint(), {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+      });
+      if (r.ok) return await r.json();
+
+      let apiMessage = '';
+      try {
+        const eb = await r.json();
+        if (eb?.error?.message) apiMessage = eb.error.message;
+      } catch(e) {}
+
+      if (r.status >= 500 || r.status === 429) {
+        lastErr = new Error(`API ${r.status}${apiMessage ? ': ' + apiMessage.slice(0,80) : ''}`);
+        lastErr.status = r.status;
+        continue;
+      }
+      const err = new Error(`API ${r.status}${apiMessage ? ': ' + apiMessage.slice(0,120) : ''}`);
+      err.status = r.status;
+      err.fatal = true;
+      throw err;
+    } catch(e) {
+      lastErr = e;
+      // For fatal errors that might be tool-specific (400s often are), still try the fallback
+      if (e.fatal && !(fallbackBody && e.status === 400)) throw e;
+    }
+  }
+
+  // Phase 2: All grounded retries failed — try fallback (typically no Google Search) with its own retries
+  if (fallbackBody) {
+    const fallbackRetries = 3;
+    for (let attempt = 0; attempt < fallbackRetries; attempt++) {
+      if (onRetry) {
+        if (attempt === 0) onRetry('fallback', 0);
+        else {
+          const delay = baseDelay * Math.pow(2.0, attempt - 1);
+          onRetry('fallback-retry', delay, attempt);
+          await new Promise(r => setTimeout(r, delay));
+        }
+      } else if (attempt > 0) {
+        await new Promise(r => setTimeout(r, baseDelay * Math.pow(2.0, attempt - 1)));
+      }
+      try {
+        const r = await fetch(getGeminiEndpoint(), {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(fallbackBody)
+        });
+        if (r.ok) {
+          const data = await r.json();
+          data._usedFallback = true;
+          return data;
+        }
+        let apiMessage = '';
+        try { const eb = await r.json(); if (eb?.error?.message) apiMessage = eb.error.message; } catch(e) {}
+        if (r.status >= 500 || r.status === 429) {
+          lastErr = new Error(`API ${r.status} (fallback)${apiMessage ? ': ' + apiMessage.slice(0,80) : ''}`);
+          lastErr.status = r.status;
+          continue;
+        }
+        // Non-retriable fallback error
+        lastErr = new Error(`API ${r.status} (fallback)${apiMessage ? ': ' + apiMessage.slice(0,80) : ''}`);
+        lastErr.status = r.status;
+        break;
+      } catch(e) {
+        lastErr = e;
+      }
+    }
+  }
+
+  throw lastErr || new Error('Gemini unreachable after retries');
+}
+
+function friendlyError(err) {
+  const msg = err?.message || String(err);
+  const status = err?.status;
+  if (status === 503 || /503|overloaded|UNAVAILABLE/i.test(msg)) {
+    return "Gemini's servers are busy right now (common on the free tier). I retried a few times and got no luck — give it a moment, then hit Retry.";
+  }
+  if (status === 429 || /429|quota|rate.limit/i.test(msg)) {
+    return "Hit the API rate limit. Wait a couple of minutes, then click Retry. (Free tier limits Gemini to a handful of requests per minute.)";
+  }
+  if (status === 403 || /403|permission|API key/i.test(msg)) {
+    return "API key was rejected (403). Try rotating the Gemini key in your Google AI Studio account.";
+  }
+  if (status === 400 || /400/.test(msg)) {
+    return "The API rejected the request (400). This is usually temporary — try Refresh.";
+  }
+  if (/Failed to fetch|network|NetworkError/i.test(msg)) {
+    return "Can't reach Gemini's servers. Check your internet connection, then click Retry.";
+  }
+  return `Couldn't fetch live news: ${msg}. Click Retry to try again.`;
+}
+
+// Human-readable labels for stored values
+const LABELS = {
+  motivation: {
+    out_of_loop: "wants to catch up on the news",
+    reliable_sources: "wants reliable sources",
+    work: "needs to stay informed for work/school",
+    curious: "wants a smart daily read",
+    ditch_socials: "wants to stop getting news from social media"
+  },
+  currentSources: {
+    social_media: "social media", news_sites: "news websites", podcasts: "podcasts",
+    newsletters: "newsletters", tv: "TV news", friends_family: "friends/family",
+    reddit: "Reddit/forums", rarely: "rarely follows news"
+  },
+  interests: {
+    politics_policy: "politics & policy", climate: "climate & environment",
+    tech_ai: "tech & AI", economy: "economy & business", world_affairs: "world affairs",
+    health: "health & science", culture_arts: "culture & the arts", sports: "sports",
+    education: "education", social_issues: "social issues"
+  },
+  lessFamiliar: {
+    markets: "global markets & finance", geopolitics: "geopolitics",
+    ai_tech: "AI & emerging tech", legal: "court cases & legal issues",
+    energy: "energy policy", health_policy: "health policy",
+    immigration: "immigration policy", science: "science research"
+  },
+  political: {
+    balanced: "wants balanced coverage",
+    lean_left: "leans left, but wants exposure to other views",
+    lean_right: "leans right, but wants exposure to other views",
+    center: "prefers centrist/non-partisan reporting",
+    skip: "no preference shared"
+  }
+};
+
+// --- Sample fallback content (used only if API fails entirely) ---
+const FALLBACK = {
+  featured: {
+    headline: "We couldn't reach live news right now",
+    summary: "Try the refresh button to retry. In the meantime, here's a placeholder layout so you can see how the dashboard will look.",
+    source: "The Daily Dose", url: "#", category: "System", lean: "center"
+  },
+  topThree: [
+    {headline:"Story 1 placeholder", summary:"Live content will appear here when the connection is restored.", source:"AP", url:"#", category:"World", lean:"center"},
+    {headline:"Story 2 placeholder", summary:"Live content will appear here when the connection is restored.", source:"Reuters", url:"#", category:"Economy", lean:"center"},
+    {headline:"Story 3 placeholder", summary:"Live content will appear here when the connection is restored.", source:"BBC", url:"#", category:"Politics", lean:"center"}
+  ],
+  pickForYou: {headline:"Picked-for-you placeholder", summary:"Once live news is back, you'll see a story tailored to your interests here.", source:"NPR", url:"#", category:"Tech", lean:"center"},
+  explainer: {topic:"Explainer placeholder", headline:"This is where today's plain-language explainer will appear.", explanation:"Once we can fetch live content, you'll get a clear breakdown of one less-familiar topic written in everyday language.", whyItMatters:"Understanding context helps you connect today's news to bigger trends.", source:"The Atlantic", url:"#", lean:"center"},
+  podcast: {title:"Podcast placeholder", show:"The Daily", description:"A relevant podcast suggestion will appear here.", url:"#", duration:"~25 min"}
+};
+
+// ============================================================
+// PREFERENCES STATE
+// ============================================================
+let prefs = null;
+let onboarding = {step: 1, data: {motivation:"", currentSources:[], interests:[], lessFamiliar:[], political:""}};
+
+function loadPrefs() {
+  try { prefs = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) { prefs = null; }
+  return prefs;
+}
+function savePrefs(p) { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); prefs = p; }
+
+// ============================================================
+// DATE / GREETING
+// ============================================================
+function setDate() {
+  const d = new Date();
+  const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('dateString').textContent = d.toLocaleDateString('en-US', opts);
+}
+
+function setGreeting() {
+  const hour = new Date().getHours();
+  let greet;
+  if (hour < 12) greet = "Good morning";
+  else if (hour < 18) greet = "Good afternoon";
+  else greet = "Good evening";
+  document.getElementById('greetingHeadline').innerHTML =
+    `${greet}. Here's <span class="accent">your</span> briefing.`;
+
+  if (prefs && prefs.interests && prefs.interests.length) {
+    const topics = prefs.interests.slice(0, 3).map(k => LABELS.interests[k] || k);
+    document.getElementById('greetingSub').textContent =
+      `Curated around ${topics.join(', ')} — with a balanced mix of voices.`;
+  }
+}
+
+// ============================================================
+// ONBOARDING
+// ============================================================
+const onboardingModal = document.getElementById('onboardingModal');
+const stepPill = document.getElementById('stepPill');
+const nextBtn = document.getElementById('nextStepBtn');
+const backBtn = document.getElementById('backStepBtn');
+const dots = document.querySelectorAll('.progress-dots .dot');
+const closeOnboardingBtn = document.getElementById('closeOnboardingBtn');
+const TOTAL_STEPS = 5;
+
+function showOnboarding(editing = false) {
+  onboardingModal.classList.add('show');
+  closeOnboardingBtn.style.display = editing ? 'grid' : 'none';
+  document.getElementById('startOverBtn').style.display = editing ? 'inline-flex' : 'none';
+  if (editing && prefs) {
+    onboarding.data = JSON.parse(JSON.stringify(prefs));
+    // Restore visual selection
+    document.querySelectorAll('.options-grid').forEach(grid => {
+      const field = grid.dataset.field;
+      const multi = grid.dataset.multi === 'true';
+      const val = onboarding.data[field];
+      grid.querySelectorAll('.option').forEach(opt => {
+        if (multi) {
+          if (Array.isArray(val) && val.includes(opt.dataset.value)) opt.classList.add('selected');
+          else opt.classList.remove('selected');
+        } else {
+          opt.classList.toggle('selected', opt.dataset.value === val);
+        }
+      });
+    });
+  }
+  goToStep(onboarding.step);
+}
+
+function hideOnboarding() { onboardingModal.classList.remove('show'); }
+
+function goToStep(n) {
+  onboarding.step = n;
+  document.querySelectorAll('.step').forEach(s => s.classList.toggle('active', +s.dataset.step === n));
+  dots.forEach((d, i) => d.classList.toggle('active', i === n - 1));
+  stepPill.textContent = `Step ${n} of ${TOTAL_STEPS}`;
+  backBtn.style.visibility = n === 1 ? 'hidden' : 'visible';
+  nextBtn.textContent = n === TOTAL_STEPS ? 'Build my briefing →' : 'Next';
+  validateStep();
+}
+
+function validateStep() {
+  const n = onboarding.step;
+  const stepEl = document.querySelector(`.step[data-step="${n}"]`);
+  const grid = stepEl.querySelector('.options-grid');
+  const field = grid.dataset.field;
+  const multi = grid.dataset.multi === 'true';
+  const val = onboarding.data[field];
+  // Step 5 (political) is optional — always allow
+  let valid = false;
+  if (n === 5) valid = true;
+  else if (multi) valid = Array.isArray(val) && val.length > 0;
+  else valid = !!val;
+  nextBtn.disabled = !valid;
+}
+
+document.querySelectorAll('.options-grid').forEach(grid => {
+  const field = grid.dataset.field;
+  const multi = grid.dataset.multi === 'true';
+  grid.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const v = opt.dataset.value;
+      if (multi) {
+        if (!Array.isArray(onboarding.data[field])) onboarding.data[field] = [];
+        const idx = onboarding.data[field].indexOf(v);
+        if (idx >= 0) { onboarding.data[field].splice(idx, 1); opt.classList.remove('selected'); }
+        else { onboarding.data[field].push(v); opt.classList.add('selected'); }
+      } else {
+        onboarding.data[field] = v;
+        grid.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+      }
+      validateStep();
+    });
+  });
+});
+
+nextBtn.addEventListener('click', () => {
+  if (onboarding.step < TOTAL_STEPS) { goToStep(onboarding.step + 1); }
+  else {
+    savePrefs(onboarding.data);
+    hideOnboarding();
+    setGreeting();
+    fetchBriefing(true);
+  }
+});
+backBtn.addEventListener('click', () => { if (onboarding.step > 1) goToStep(onboarding.step - 1); });
+closeOnboardingBtn.addEventListener('click', hideOnboarding);
+
+// ============================================================
+// BRIEFING FETCH (Gemini + Google Search)
+// ============================================================
+function buildPrefsSummary() {
+  if (!prefs) return "";
+  const m = LABELS.motivation[prefs.motivation] || "";
+  const cs = (prefs.currentSources||[]).map(k => LABELS.currentSources[k]).filter(Boolean).join(', ');
+  const it = (prefs.interests||[]).map(k => LABELS.interests[k]).filter(Boolean).join(', ');
+  const lf = (prefs.lessFamiliar||[]).map(k => LABELS.lessFamiliar[k]).filter(Boolean).join(', ');
+  const pol = LABELS.political[prefs.political] || "balanced exposure";
+  return `User profile:
+- Motivation: ${m}
+- Currently consumes news from: ${cs || 'unspecified'}
+- Areas of strong interest: ${it || 'general news'}
+- Topics they want help understanding: ${lf || 'general'}
+- Political preference: ${pol}`;
+}
+
+function buildPrompt() {
+  const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year:'numeric', month:'long', day:'numeric' });
+  return `You are an editorial assistant building a personalized daily news briefing called "The Daily Dose".
+
+Today's date is ${today}.
+
+${buildPrefsSummary()}
+
+Use Google Search to find REAL, RECENT news stories from the last 1–2 days. Source ONLY from reputable outlets such as: NPR, The Wall Street Journal, Reuters, BBC, Real Clear Politics, Associated Press (AP), The Atlantic, CBS News, The Economist, The New York Times, Time, The Washington Post, The Washington Times, The Guardian, Washington Examiner, The American Conservative, Bloomberg, PBS NewsHour, Axios, Politico.
+
+Return your response as a SINGLE valid JSON object with this exact shape (no markdown fences, no commentary, just JSON):
+
+{
+  "featured": {
+    "category": "Topic category (e.g. 'World Affairs', 'Climate', 'Tech & AI')",
+    "headline": "Compelling headline of the most important story aligned with the user's interests",
+    "summary": "3–4 sentences plainly summarizing what happened, the key facts, and why it matters",
+    "source": "Source name (e.g. 'The New York Times')",
+    "url": "Direct URL to the article",
+    "lean": "left | center | right (political lean of the source)"
+  },
+  "topThree": [
+    {"category":"...", "headline":"...", "summary":"2–3 sentence snapshot of the event", "source":"...", "url":"...", "lean":"left|center|right"},
+    {"category":"...", "headline":"...", "summary":"...", "source":"...", "url":"...", "lean":"left|center|right"},
+    {"category":"...", "headline":"...", "summary":"...", "source":"...", "url":"...", "lean":"left|center|right"}
+  ],
+  "pickForYou": {
+    "category": "...",
+    "headline": "Story matched to a specific user interest",
+    "summary": "3–4 sentences. Briefly note WHY this fits the user's interests.",
+    "source": "...", "url": "...", "lean": "left|center|right"
+  },
+  "explainer": {
+    "topic": "The complex topic (drawn from the user's 'less familiar' list)",
+    "headline": "Plain-language headline of an event in this area",
+    "explanation": "5–6 sentences explaining the topic in everyday language as if to a smart friend who hasn't been following. Avoid jargon. Define key terms.",
+    "whyItMatters": "1–2 sentences on why this matters for everyday life or the world",
+    "source": "...", "url": "...", "lean": "left|center|right"
+  },
+  "podcast": {
+    "title": "Specific recent episode title",
+    "show": "Podcast name (e.g. 'The Daily', 'The Journal', 'NPR Up First', 'The Ezra Klein Show')",
+    "description": "1–2 sentences on what this episode covers and why the user would like it",
+    "url": "Link to episode if available, else show homepage",
+    "duration": "Approximate duration like '~25 min'"
+  }
+}
+
+Important rules:
+- Across all 6 stories, aim for political balance: include a mix of left-leaning, center, and right-leaning sources unless the user specified otherwise.
+- ALL 6 stories must be DIFFERENT — no duplicate topics or sources where avoidable.
+- Use only real, current articles you can verify via search. Always include real URLs.
+- The 'explainer' should be on a topic from the user's "wants to understand better" list, written simply.
+- Return JSON only — no leading/trailing text, no markdown code fences.`;
+}
+
+function showError(msg, type = 'warning') {
+  const banner = document.getElementById('errorBanner');
+  banner.style.display = 'flex';
+  banner.classList.toggle('info', type === 'info');
+  document.getElementById('errorMessage').textContent = msg;
+}
+function hideError() {
+  const banner = document.getElementById('errorBanner');
+  banner.style.display = 'none';
+  banner.classList.remove('info');
+}
+
+async function fetchBriefing(force = false) {
+  if (!prefs) return;
+  hideError();
+  showSkeletons();
+
+  // Use cached briefing if from today
+  if (!force) {
+    try {
+      const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+      if (cached && cached.date === todayKey()) {
+        renderBriefing(cached.data);
+        return;
+      }
+    } catch(e) {}
+  }
+
+  try {
+    const fallbackPrompt = buildPrompt() + `
+
+IMPORTANT: Google Search is unavailable for this request. Generate the briefing using your training knowledge of recent events. Use plausible, well-known headlines and storylines.
+
+Field rules for the fallback:
+- "source": the readable outlet NAME only (e.g. "Reuters", "The New York Times", "BBC"). NEVER put a URL here.
+- "url": the source's homepage URL (e.g. "https://www.reuters.com", "https://www.nytimes.com"). Do not invent fake article URLs.
+
+All other instructions still apply (political balance, structure, JSON-only output).`;
+
+    const data = await geminiCall({
+      contents: [{ parts: [{ text: buildPrompt() }] }],
+      tools: [{ google_search: {} }],
+      generationConfig: { temperature: 0.4, maxOutputTokens: 8192 }
+    }, {
+      retries: 3,
+      fallbackBody: {
+        contents: [{ parts: [{ text: fallbackPrompt }] }],
+        generationConfig: { temperature: 0.5, maxOutputTokens: 8192 }
+      },
+      onRetry: (attempt, delay, fbNum) => {
+        if (attempt === 'fallback') {
+          showError("Google Search is overloaded — trying without live search…");
+        } else if (attempt === 'fallback-retry') {
+          showError(`Still busy — retrying without live search (${fbNum}/3, waiting ${(delay/1000).toFixed(1)}s)…`);
+        } else {
+          showError(`Gemini's servers are busy — retrying (attempt ${attempt+1}/3, waiting ${(delay/1000).toFixed(1)}s)…`);
+        }
+      }
+    });
+    const text = data?.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('') || '';
+    const parsed = extractJSON(text);
+    if (!parsed) throw new Error("Could not parse briefing JSON");
+    // Cache + render
+    localStorage.setItem(CACHE_KEY, JSON.stringify({date: todayKey(), data: parsed, usedFallback: !!data._usedFallback}));
+    if (data._usedFallback) {
+      showError("Live news search was unavailable — showing a briefing built from Gemini's training knowledge instead. Click Refresh later for live news.", 'info');
+    } else {
+      hideError();
+    }
+    renderBriefing(parsed);
+  } catch (err) {
+    console.error(err);
+    showError(friendlyError(err) + " (Showing fallback content while you wait.)");
+    renderBriefing(FALLBACK);
+  }
+}
+
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+}
+
+function extractJSON(text) {
+  if (!text) return null;
+  // Strip code fences if present (closed) or strip just opener if not closed
+  let candidate = text;
+  const closed = text.match(/```(?:json)?\s*([\s\S]+?)```/);
+  if (closed) {
+    candidate = closed[1];
+  } else {
+    const opener = text.match(/```(?:json)?\s*([\s\S]+)$/);
+    if (opener) candidate = opener[1];
+  }
+  // Find first { ... last }
+  const start = candidate.indexOf('{');
+  const end = candidate.lastIndexOf('}');
+  if (start < 0 || end < 0) return null;
+  const jsonStr = candidate.slice(start, end + 1);
+
+  // Try strict parse first
+  try { return JSON.parse(jsonStr); } catch(e) {}
+
+  // Tolerant pass 1: walk chars, escape control chars inside string literals
+  // (Gemini sometimes includes raw newlines inside string values.)
+  function escapeControlChars(s) {
+    let out = '';
+    let inStr = false, esc = false;
+    for (let i = 0; i < s.length; i++) {
+      const c = s[i];
+      if (esc) { out += c; esc = false; continue; }
+      if (c === '\\' && inStr) { out += c; esc = true; continue; }
+      if (c === '"') { inStr = !inStr; out += c; continue; }
+      if (inStr) {
+        if (c === '\n') { out += '\\n'; continue; }
+        if (c === '\r') { out += '\\r'; continue; }
+        if (c === '\t') { out += '\\t'; continue; }
+        if (c.charCodeAt(0) < 0x20) { out += ' '; continue; }
+      }
+      out += c;
+    }
+    return out;
+  }
+  try { return JSON.parse(escapeControlChars(jsonStr)); } catch(e) {}
+
+  // Tolerant pass 2: also strip trailing commas
+  try { return JSON.parse(escapeControlChars(jsonStr).replace(/,(\s*[\]}])/g, '$1')); }
+  catch(e) { return null; }
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function safeUrl(u) { if (!u || u==='#') return '#'; try { const url = new URL(u); return url.protocol.startsWith('http') ? u : '#'; } catch(e) { return '#'; } }
+
+// Known source-name → domain mapping. Lets us scope the search to the right
+// site so users land directly on the article rather than a search results page.
+const SOURCE_DOMAINS = {
+  'the new york times':'nytimes.com', 'new york times':'nytimes.com', 'nyt':'nytimes.com',
+  'the wall street journal':'wsj.com', 'wall street journal':'wsj.com', 'wsj':'wsj.com',
+  'reuters':'reuters.com',
+  'associated press':'apnews.com', 'ap':'apnews.com', 'ap news':'apnews.com',
+  'bbc':'bbc.com', 'bbc news':'bbc.com',
+  'npr':'npr.org', 'npr news':'npr.org',
+  'the washington post':'washingtonpost.com', 'washington post':'washingtonpost.com',
+  'the guardian':'theguardian.com', 'guardian':'theguardian.com',
+  'the atlantic':'theatlantic.com', 'atlantic':'theatlantic.com',
+  'the economist':'economist.com', 'economist':'economist.com',
+  'bloomberg':'bloomberg.com',
+  'cbs news':'cbsnews.com', 'cbs':'cbsnews.com',
+  'pbs newshour':'pbs.org', 'pbs':'pbs.org',
+  'time':'time.com', 'time magazine':'time.com',
+  'politico':'politico.com',
+  'axios':'axios.com',
+  'the washington times':'washingtontimes.com', 'washington times':'washingtontimes.com',
+  'washington examiner':'washingtonexaminer.com',
+  'the american conservative':'theamericanconservative.com',
+  'national review':'nationalreview.com',
+  'fox news':'foxnews.com',
+  'msnbc':'msnbc.com',
+  'cnn':'cnn.com',
+  'usa today':'usatoday.com',
+  'nbc news':'nbcnews.com',
+  'abc news':'abcnews.go.com',
+  'real clear politics':'realclearpolitics.com', 'realclearpolitics':'realclearpolitics.com',
+  'the hill':'thehill.com',
+  'vox':'vox.com',
+  'mother jones':'motherjones.com',
+  'new york post':'nypost.com',
+  'pbs':'pbs.org',
+  'sciencedaily':'sciencedaily.com'
+};
+function sourceToDomain(s) {
+  const k = (s||'').toLowerCase().replace(/[.,]/g,'').trim();
+  return SOURCE_DOMAINS[k] || SOURCE_DOMAINS[k.replace(/^the\s+/, '')] || null;
+}
+
+// Build a "go straight to the article" URL using DuckDuckGo's !ducky bang.
+// DDG's !ducky redirects to the FIRST result for the query — so the user lands
+// on the actual article, not a search page. We add a site: filter when we
+// recognize the source so the result is constrained to that outlet's domain.
+function searchUrl(story) {
+  if (!story || !story.headline) return 'https://duckduckgo.com/';
+  const headline = story.headline.replace(/["']/g, '').slice(0, 150);
+  const domain = sourceToDomain(story.source);
+  const query = domain
+    ? `!ducky site:${domain} ${headline}`
+    : `!ducky ${headline} ${story.source || ''}`.trim();
+  return `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
+}
+function leanClass(l) {
+  l = (l||'').toLowerCase();
+  if (['left','right','center'].includes(l)) return l;
+  // Tolerate variants like "Center-Right", "Lean Left", "Right-Leaning"
+  if (l.includes('left')) return 'left';
+  if (l.includes('right')) return 'right';
+  return 'center';
+}
+function leanLabel(l) {
+  const c = leanClass(l);
+  return c === 'left' ? 'Left' : c === 'right' ? 'Right' : 'Center';
+}
+function readingTime(s) { if(!s) return '1 min'; const w=s.split(/\s+/).length; return `${Math.max(1, Math.round(w/200))} min read`; }
+
+function showSkeletons() { /* skeletons are present in HTML by default */ }
+
+// ============= Story identity + index =============
+let currentBriefingIndex = {};
+function storyId(story) {
+  if (!story) return '';
+  const seed = (story.url || story.headline || '') + '|' + (story.source||'');
+  // Simple hash
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) { h = ((h<<5) - h) + seed.charCodeAt(i); h |= 0; }
+  return 's' + Math.abs(h).toString(36);
+}
+function indexBriefing(b) {
+  currentBriefingIndex = {};
+  if (b.featured) currentBriefingIndex[storyId(b.featured)] = {...b.featured, _section:'featured'};
+  (b.topThree||[]).forEach(s => { currentBriefingIndex[storyId(s)] = {...s, _section:'top'}; });
+  if (b.pickForYou) currentBriefingIndex[storyId(b.pickForYou)] = {...b.pickForYou, _section:'pick'};
+  if (b.explainer) {
+    const e = {...b.explainer, headline: b.explainer.headline, summary: b.explainer.explanation, _section:'explainer'};
+    currentBriefingIndex[storyId(e)] = e;
+  }
+}
+function findStoryById(id) { return currentBriefingIndex[id]; }
+
+// ============= Action row builder =============
+function actionRow(story, opts = {}) {
+  const id = storyId(story);
+  const saved = isSaved(id);
+  const showAisle = opts.aisle !== false;
+  return `<div class="card-actions" data-story-id="${id}">
+    ${showAisle ? `<button class="card-action aisle-btn" data-action="aisle" data-story-id="${id}" title="Compare how different outlets cover this">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 7l4-4 4 4M21 17l-4 4-4-4"/></svg>
+      Across the Aisle
+    </button>` : ''}
+    <button class="card-action ask-btn" data-action="ask" data-story-id="${id}" title="Ask the chatbot about this story">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Ask
+    </button>
+    <button class="card-action save-btn ${saved?'active':''}" data-action="save" data-story-id="${id}" title="${saved?'Saved':'Save for later'}">
+      <svg viewBox="0 0 24 24" fill="${saved?'currentColor':'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span class="save-label">${saved?'Saved':'Save'}</span>
+    </button>
+    <a class="card-action read-btn" href="${searchUrl(story)}" target="_blank" rel="noopener" data-action="read" data-story-id="${id}" title="Find this article via Google Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Read →
+    </a>
+  </div>`;
+}
+
+function sourcePill(source, lean, opts = {}) {
+  return `<button class="source-pill" data-action="source" data-source="${escapeHtml(source||'')}" type="button">
+    <span class="lean ${leanClass(lean)}"></span>${escapeHtml(source||'Unknown')}${opts.showLean!==false ? ' · ' + leanLabel(lean) : ''}
+  </button>`;
+}
+
+function renderBriefing(b) {
+  if (!b) return;
+  indexBriefing(b);
+
+  // Featured
+  if (b.featured) {
+    const f = b.featured;
+    document.getElementById('featuredContainer').innerHTML = `
+      <div class="card featured" data-story-id="${storyId(f)}">
+        <div class="featured-content">
+          <div class="label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.5 5.5 21 7 14 2 9.3 9 8.5 12 2"/></svg>
+            FEATURED · ${escapeHtml(f.category||'Top Story')}
+          </div>
+          <h3 class="headline">${escapeHtml(f.headline)}</h3>
+          <p class="summary">${escapeHtml(f.summary)}</p>
+          <div class="meta-row">
+            ${sourcePill(f.source, f.lean)}
+            <span>${readingTime(f.summary)}</span>
+          </div>
+          ${actionRow(f, {aisle:true})}
+        </div>
+      </div>`;
+  }
+
+  // Top three
+  if (Array.isArray(b.topThree)) {
+    document.getElementById('topThreeContainer').innerHTML = b.topThree.map(s => `
+      <div class="card" data-story-id="${storyId(s)}">
+        <div class="category">${escapeHtml(s.category||'News')}</div>
+        <h4>${escapeHtml(s.headline)}</h4>
+        <p>${escapeHtml(s.summary)}</p>
+        <div class="meta-row">
+          ${sourcePill(s.source, s.lean, {showLean:false})}
+          <span>${readingTime(s.summary)}</span>
+        </div>
+        ${actionRow(s, {aisle:true})}
+      </div>`).join('');
+  }
+
+  // Pick for you
+  if (b.pickForYou) {
+    const p = b.pickForYou;
+    document.getElementById('pickForYouContainer').innerHTML = `
+      <div class="card" data-story-id="${storyId(p)}">
+        <div class="category" style="color:#6366f1">★ Picked for you · ${escapeHtml(p.category||'')}</div>
+        <h4>${escapeHtml(p.headline)}</h4>
+        <p>${escapeHtml(p.summary)}</p>
+        <div class="meta-row">
+          ${sourcePill(p.source, p.lean, {showLean:false})}
+          <span>${readingTime(p.summary)}</span>
+        </div>
+        ${actionRow(p, {aisle:false})}
+      </div>`;
+  }
+
+  // Explainer
+  if (b.explainer) {
+    const e = b.explainer;
+    const eForActions = {...e, summary: e.explanation};
+    document.getElementById('explainerContainer').innerHTML = `
+      <div class="card explainer" data-story-id="${storyId(eForActions)}">
+        <span class="badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          DECODED · ${escapeHtml(e.topic||'Explainer')}
+        </span>
+        <h4>${escapeHtml(e.headline)}</h4>
+        <p>${escapeHtml(e.explanation)}</p>
+        <div class="why-it-matters"><strong>Why it matters: </strong>${escapeHtml(e.whyItMatters||'')}</div>
+        <div class="meta-row">
+          ${sourcePill(e.source, e.lean, {showLean:false})}
+          <span>${readingTime(e.explanation)}</span>
+        </div>
+        ${actionRow(eForActions, {aisle:false})}
+      </div>`;
+  }
+
+  // Podcast (simple, no action row)
+  if (b.podcast) {
+    const p = b.podcast;
+    const podcastSearchUrl = `https://duckduckgo.com/?q=${encodeURIComponent(`!ducky ${p.title||''} ${p.show||''} podcast episode`)}`;
+    document.getElementById('podcastContainer').innerHTML = `
+      <a class="card podcast" href="${podcastSearchUrl}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+        <div class="mic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </div>
+        <div style="flex:1">
+          <div class="show-name">🎧 ${escapeHtml(p.show)} · ${escapeHtml(p.duration||'~30 min')}</div>
+          <h4>${escapeHtml(p.title)}</h4>
+          <p style="color:#475569;font-size:14px;margin:4px 0 0">${escapeHtml(p.description)}</p>
+        </div>
+      </a>`;
+  }
+
+  // Diversity strip
+  renderDiversity(b);
+  updateSavedBadge();
+}
+
+function renderDiversity(b) {
+  const all = [b.featured, ...(b.topThree||[]), b.pickForYou, b.explainer].filter(Boolean);
+  if (!all.length) return;
+  const counts = {left:0, center:0, right:0};
+  all.forEach(s => { counts[leanClass(s.lean)]++; });
+  const total = counts.left + counts.center + counts.right;
+  const strip = document.getElementById('diversityStrip');
+  const bar = document.getElementById('diversityBar');
+  if (total === 0) { strip.style.display = 'none'; return; }
+  bar.innerHTML = `
+    <div style="width:${(counts.left/total*100).toFixed(0)}%;background:#2563eb"></div>
+    <div style="width:${(counts.center/total*100).toFixed(0)}%;background:#6b7280"></div>
+    <div style="width:${(counts.right/total*100).toFixed(0)}%;background:#dc2626"></div>`;
+  strip.style.display = 'flex';
+}
+
+// ============================================================
+// STREAKS & STATS
+// ============================================================
+const STATS_KEY = 'dailyDose_stats_v2';
+function defaultStats() {
+  return { visits: [], currentStreak: 0, longestStreak: 0,
+           articlesOpened: 0, articlesSaved: 0, topicsCovered: [],
+           firstVisit: null };
+}
+function loadStats() {
+  try { return Object.assign(defaultStats(), JSON.parse(localStorage.getItem(STATS_KEY)) || {}); }
+  catch(e) { return defaultStats(); }
+}
+function saveStats(s) { localStorage.setItem(STATS_KEY, JSON.stringify(s)); }
+
+function recordVisit() {
+  const s = loadStats();
+  const today = todayKey();
+  if (!s.firstVisit) s.firstVisit = today;
+  if (!s.visits.includes(today)) {
+    s.visits.push(today);
+    // Compute streak: consecutive days ending today
+    let streak = 1;
+    const dayMs = 86400000;
+    let cursor = new Date();
+    for (;;) {
+      cursor = new Date(cursor.getTime() - dayMs);
+      const k = `${cursor.getFullYear()}-${cursor.getMonth()+1}-${cursor.getDate()}`;
+      if (s.visits.includes(k)) streak++; else break;
+    }
+    s.currentStreak = streak;
+    s.longestStreak = Math.max(s.longestStreak, streak);
+    saveStats(s);
+  }
+  updateStreakChip();
+}
+
+function recordArticleOpen(category) {
+  const s = loadStats();
+  s.articlesOpened++;
+  if (category && !s.topicsCovered.includes(category)) s.topicsCovered.push(category);
+  saveStats(s);
+}
+
+function updateStreakChip() {
+  const s = loadStats();
+  const el = document.getElementById('streakNum');
+  if (el) el.textContent = s.currentStreak || 0;
+}
+
+function renderStatsModal() {
+  const s = loadStats();
+  const body = document.getElementById('statsBody');
+  // Last 14 days strip
+  const days = [];
+  const today = new Date();
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date(today.getTime() - i*86400000);
+    const k = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+    const visited = s.visits.includes(k);
+    const isToday = i === 0;
+    days.push({k, label: d.getDate(), visited, isToday, weekday: d.toLocaleDateString('en-US',{weekday:'short'})[0]});
+  }
+  const topics = s.topicsCovered.slice(-20).reverse();
+  const savedList = loadSaved();
+  body.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card streak">
+        <div class="stat-label">🔥 Current streak</div>
+        <div class="stat-value">${s.currentStreak}</div>
+        <div class="stat-sub">${s.currentStreak===1?'day':'days'} in a row</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">🏆 Longest streak</div>
+        <div class="stat-value">${s.longestStreak}</div>
+        <div class="stat-sub">your record</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">📅 Days visited</div>
+        <div class="stat-value">${s.visits.length}</div>
+        <div class="stat-sub">since ${s.firstVisit || todayKey()}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">📰 Articles opened</div>
+        <div class="stat-value">${s.articlesOpened}</div>
+        <div class="stat-sub">${savedList.length} saved</div>
+      </div>
+    </div>
+    <div class="stats-section-label">Last 14 days</div>
+    <div class="calendar-strip">
+      ${days.map(d => `<div class="cal-day ${d.visited?'visited':''} ${d.isToday?'today':''}" title="${d.k}${d.visited?' · visited':''}">${d.label}</div>`).join('')}
+    </div>
+    <div class="stats-section-label">Topics you've explored (${topics.length})</div>
+    ${topics.length ? `<div class="topic-chips">${topics.map(t => `<span class="topic-chip">${escapeHtml(t)}</span>`).join('')}</div>`
+                    : `<p style="color:#94a3b8;font-size:14px;margin:0;">Open a few articles and topics will appear here.</p>`}
+  `;
+}
+
+// ============================================================
+// SAVED ARTICLES
+// ============================================================
+const SAVED_KEY = 'dailyDose_saved_v2';
+function loadSaved() {
+  try { return JSON.parse(localStorage.getItem(SAVED_KEY)) || []; }
+  catch(e) { return []; }
+}
+function persistSaved(arr) { localStorage.setItem(SAVED_KEY, JSON.stringify(arr)); }
+function isSaved(id) { return loadSaved().some(s => s.id === id); }
+
+function toggleSaved(story, id) {
+  const list = loadSaved();
+  const idx = list.findIndex(s => s.id === id);
+  if (idx >= 0) {
+    list.splice(idx, 1);
+    persistSaved(list);
+    toast('Removed from your list');
+    return false;
+  } else {
+    list.unshift({
+      id, headline: story.headline, summary: story.summary,
+      source: story.source, url: story.url, category: story.category,
+      lean: story.lean, savedAt: Date.now(), note: ''
+    });
+    persistSaved(list);
+    const s = loadStats(); s.articlesSaved = list.length; saveStats(s);
+    toast('Saved to your list ✓');
+    return true;
+  }
+}
+
+function updateSavedBadge() {
+  const count = loadSaved().length;
+  const badge = document.getElementById('savedCountBadge');
+  if (badge) {
+    badge.textContent = count > 99 ? '99+' : count;
+    badge.classList.toggle('hidden', count === 0);
+  }
+  const countText = document.getElementById('savedCountText');
+  if (countText) countText.textContent = count;
+}
+
+function timeAgo(ts) {
+  if (!ts) return '';
+  const diff = Date.now() - ts;
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m/60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h/24);
+  if (d < 7) return `${d}d ago`;
+  return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
+
+function renderSavedDrawer() {
+  const body = document.getElementById('savedDrawerBody');
+  const list = loadSaved();
+  updateSavedBadge();
+  if (!list.length) {
+    body.innerHTML = `<div class="drawer-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <h4>No saved articles yet</h4>
+      <p>Tap the bookmark icon on any story<br>to save it for later.</p>
+    </div>`;
+    return;
+  }
+  body.innerHTML = list.map(s => `
+    <div class="saved-item" data-saved-id="${escapeHtml(s.id)}">
+      <div class="saved-meta">
+        <span><span class="lean-dot" style="background:${s.lean && leanClass(s.lean)==='left'?'#2563eb':leanClass(s.lean)==='right'?'#dc2626':'#6b7280'}"></span>${escapeHtml(s.source||'Unknown')}${s.category?' · '+escapeHtml(s.category):''}</span>
+        <span>${timeAgo(s.savedAt)}</span>
+      </div>
+      <h4>${escapeHtml(s.headline)}</h4>
+      <p>${escapeHtml((s.summary||'').slice(0,180))}${(s.summary||'').length>180?'…':''}</p>
+      <textarea data-note-for="${escapeHtml(s.id)}" placeholder="Add a note about this story…">${escapeHtml(s.note||'')}</textarea>
+      <div class="saved-actions">
+        <a href="${searchUrl(s)}" target="_blank" rel="noopener" data-action="read" data-story-id="${escapeHtml(s.id)}">Find article →</a>
+        <button class="remove-btn" data-remove-saved="${escapeHtml(s.id)}">Remove</button>
+      </div>
+    </div>`).join('');
+  // Bind note save on blur
+  body.querySelectorAll('textarea[data-note-for]').forEach(t => {
+    t.addEventListener('blur', () => {
+      const id = t.getAttribute('data-note-for');
+      const arr = loadSaved();
+      const item = arr.find(x => x.id === id);
+      if (item) { item.note = t.value; persistSaved(arr); }
+    });
+  });
+  body.querySelectorAll('[data-remove-saved]').forEach(b => {
+    b.addEventListener('click', () => {
+      const id = b.getAttribute('data-remove-saved');
+      persistSaved(loadSaved().filter(s => s.id !== id));
+      renderSavedDrawer();
+      // Sync save button on cards
+      document.querySelectorAll(`.save-btn[data-story-id="${id}"]`).forEach(btn => {
+        btn.classList.remove('active');
+        const lbl = btn.querySelector('.save-label'); if (lbl) lbl.textContent = 'Save';
+        const svg = btn.querySelector('svg'); if (svg) svg.setAttribute('fill','none');
+      });
+    });
+  });
+}
+
+// ============================================================
+// SOURCE SPOTLIGHT
+// ============================================================
+const SOURCE_DB = {
+  'the new york times': {lean:'left', type:'Newspaper', founded:'1851', ownership:'The New York Times Company (public)', country:'USA', credibility:'High', notes:'One of the most-cited newspapers in the world. News reporting is rated highly for factual accuracy; editorial stance is generally considered left-of-center.'},
+  'new york times': {lean:'left', type:'Newspaper', founded:'1851', ownership:'The New York Times Company (public)', country:'USA', credibility:'High', notes:'One of the most-cited newspapers in the world. News reporting is rated highly for factual accuracy; editorial stance is generally considered left-of-center.'},
+  'nyt': {lean:'left', type:'Newspaper', founded:'1851', ownership:'The New York Times Company (public)', country:'USA', credibility:'High', notes:'One of the most-cited newspapers in the world. News reporting is rated highly for factual accuracy; editorial stance is generally considered left-of-center.'},
+  'the wall street journal': {lean:'right', type:'Newspaper', founded:'1889', ownership:'News Corp', country:'USA', credibility:'High', notes:'Major US business newspaper. News reporting is highly rated for accuracy; the editorial page is right-leaning.'},
+  'wall street journal': {lean:'right', type:'Newspaper', founded:'1889', ownership:'News Corp', country:'USA', credibility:'High', notes:'Major US business newspaper. News reporting is highly rated for accuracy; the editorial page is right-leaning.'},
+  'wsj': {lean:'right', type:'Newspaper', founded:'1889', ownership:'News Corp', country:'USA', credibility:'High', notes:'Major US business newspaper. News reporting is highly rated for accuracy; the editorial page is right-leaning.'},
+  'reuters': {lean:'center', type:'Wire service', founded:'1851', ownership:'Thomson Reuters', country:'UK/Canada', credibility:'Very High', notes:'International news agency widely cited as one of the most factual and neutral news sources globally.'},
+  'associated press': {lean:'center', type:'Wire service', founded:'1846', ownership:'Nonprofit cooperative', country:'USA', credibility:'Very High', notes:'AP is a not-for-profit news cooperative used by thousands of outlets globally. Known for strict factual standards.'},
+  'ap': {lean:'center', type:'Wire service', founded:'1846', ownership:'Nonprofit cooperative', country:'USA', credibility:'Very High', notes:'AP is a not-for-profit news cooperative used by thousands of outlets globally. Known for strict factual standards.'},
+  'ap news': {lean:'center', type:'Wire service', founded:'1846', ownership:'Nonprofit cooperative', country:'USA', credibility:'Very High', notes:'AP is a not-for-profit news cooperative used by thousands of outlets globally. Known for strict factual standards.'},
+  'bbc': {lean:'center', type:'Broadcaster', founded:'1922', ownership:'Public (UK license fee)', country:'UK', credibility:'High', notes:'British public broadcaster funded by license fees. Considered centrist with rigorous editorial standards.'},
+  'bbc news': {lean:'center', type:'Broadcaster', founded:'1922', ownership:'Public (UK license fee)', country:'UK', credibility:'High', notes:'British public broadcaster funded by license fees. Considered centrist with rigorous editorial standards.'},
+  'npr': {lean:'left', type:'Public radio', founded:'1970', ownership:'Nonprofit (member-supported)', country:'USA', credibility:'High', notes:'US public radio network. News reporting rated highly factual; perceived to lean somewhat left-of-center.'},
+  'npr news': {lean:'left', type:'Public radio', founded:'1970', ownership:'Nonprofit (member-supported)', country:'USA', credibility:'High', notes:'US public radio network. News reporting rated highly factual; perceived to lean somewhat left-of-center.'},
+  'the washington post': {lean:'left', type:'Newspaper', founded:'1877', ownership:'Nash Holdings (Jeff Bezos)', country:'USA', credibility:'High', notes:'Major US newspaper. Generally considered left-of-center with a strong investigative reporting tradition.'},
+  'washington post': {lean:'left', type:'Newspaper', founded:'1877', ownership:'Nash Holdings (Jeff Bezos)', country:'USA', credibility:'High', notes:'Major US newspaper. Generally considered left-of-center with a strong investigative reporting tradition.'},
+  'the guardian': {lean:'left', type:'Newspaper', founded:'1821', ownership:'Scott Trust (nonprofit)', country:'UK', credibility:'High', notes:'British newspaper owned by a non-profit trust. Generally considered left-leaning.'},
+  'guardian': {lean:'left', type:'Newspaper', founded:'1821', ownership:'Scott Trust (nonprofit)', country:'UK', credibility:'High', notes:'British newspaper owned by a non-profit trust. Generally considered left-leaning.'},
+  'the atlantic': {lean:'left', type:'Magazine', founded:'1857', ownership:'Emerson Collective', country:'USA', credibility:'High', notes:'Long-form magazine covering politics, culture, and science. Generally considered left-of-center.'},
+  'atlantic': {lean:'left', type:'Magazine', founded:'1857', ownership:'Emerson Collective', country:'USA', credibility:'High', notes:'Long-form magazine covering politics, culture, and science. Generally considered left-of-center.'},
+  'the economist': {lean:'center', type:'Magazine', founded:'1843', ownership:'The Economist Group', country:'UK', credibility:'High', notes:'British weekly magazine with a centrist, classically-liberal editorial stance and strong global coverage.'},
+  'economist': {lean:'center', type:'Magazine', founded:'1843', ownership:'The Economist Group', country:'UK', credibility:'High', notes:'British weekly magazine with a centrist, classically-liberal editorial stance and strong global coverage.'},
+  'bloomberg': {lean:'center', type:'News service', founded:'1981', ownership:'Bloomberg L.P.', country:'USA', credibility:'High', notes:'Business-focused news organization. Generally considered centrist with high factual reporting.'},
+  'cbs news': {lean:'left', type:'Broadcaster', founded:'1927', ownership:'Paramount Global', country:'USA', credibility:'High', notes:'US broadcast news network. Generally considered to lean slightly left.'},
+  'cbs': {lean:'left', type:'Broadcaster', founded:'1927', ownership:'Paramount Global', country:'USA', credibility:'High', notes:'US broadcast news network. Generally considered to lean slightly left.'},
+  'pbs newshour': {lean:'center', type:'Public TV', founded:'1975', ownership:'Public (PBS member stations)', country:'USA', credibility:'Very High', notes:'US public television news program. Considered one of the most balanced and factual US news programs.'},
+  'pbs': {lean:'center', type:'Public TV', founded:'1970', ownership:'Public (PBS member stations)', country:'USA', credibility:'Very High', notes:'US public broadcasting network. Considered one of the most balanced and factual US news outlets.'},
+  'time': {lean:'left', type:'Magazine', founded:'1923', ownership:'Marc Benioff', country:'USA', credibility:'High', notes:'Weekly news magazine. Generally considered to lean slightly left.'},
+  'time magazine': {lean:'left', type:'Magazine', founded:'1923', ownership:'Marc Benioff', country:'USA', credibility:'High', notes:'Weekly news magazine. Generally considered to lean slightly left.'},
+  'politico': {lean:'center', type:'Digital news', founded:'2007', ownership:'Axel Springer SE', country:'USA', credibility:'High', notes:'Digital outlet specializing in politics. Considered centrist with strong Washington DC reporting.'},
+  'axios': {lean:'center', type:'Digital news', founded:'2016', ownership:'Cox Enterprises', country:'USA', credibility:'High', notes:'Digital outlet known for short-form "smart brevity." Generally considered centrist.'},
+  'the washington times': {lean:'right', type:'Newspaper', founded:'1982', ownership:'Operations Holdings', country:'USA', credibility:'Mixed', notes:'US daily newspaper with a right-leaning editorial stance.'},
+  'washington times': {lean:'right', type:'Newspaper', founded:'1982', ownership:'Operations Holdings', country:'USA', credibility:'Mixed', notes:'US daily newspaper with a right-leaning editorial stance.'},
+  'washington examiner': {lean:'right', type:'Magazine/Digital', founded:'2005', ownership:'Clarity Media Group', country:'USA', credibility:'Mixed-High', notes:'Conservative news outlet covering US politics from a right-leaning perspective.'},
+  'the american conservative': {lean:'right', type:'Magazine', founded:'2002', ownership:'American Ideas Institute (nonprofit)', country:'USA', credibility:'High', notes:'Magazine of paleo-conservative and traditionalist perspectives on politics, foreign policy, and culture.'},
+  'real clear politics': {lean:'center', type:'News aggregator', founded:'2000', ownership:'RealClear Media Group', country:'USA', credibility:'High', notes:'Political news aggregator balancing left and right sources. Well-known for polling averages.'},
+  'realclearpolitics': {lean:'center', type:'News aggregator', founded:'2000', ownership:'RealClear Media Group', country:'USA', credibility:'High', notes:'Political news aggregator balancing left and right sources. Well-known for polling averages.'},
+  'national review': {lean:'right', type:'Magazine', founded:'1955', ownership:'National Review Inc. (nonprofit)', country:'USA', credibility:'High', notes:'Influential conservative magazine and one of the foundational publications of modern American conservatism.'},
+  'fox news': {lean:'right', type:'Broadcaster', founded:'1996', ownership:'Fox Corporation', country:'USA', credibility:'Mixed', notes:'US cable news network. News reporting is generally considered right-leaning; opinion programming is strongly conservative.'},
+  'msnbc': {lean:'left', type:'Broadcaster', founded:'1996', ownership:'NBCUniversal', country:'USA', credibility:'Mixed', notes:'US cable news network. News reporting and opinion programming both lean left.'},
+  'cnn': {lean:'left', type:'Broadcaster', founded:'1980', ownership:'Warner Bros. Discovery', country:'USA', credibility:'Mixed-High', notes:'US cable news network. Generally considered to lean left, with mixed credibility ratings depending on the source.'},
+  'usa today': {lean:'center', type:'Newspaper', founded:'1982', ownership:'Gannett', country:'USA', credibility:'High', notes:'Widely-circulated US newspaper. Generally considered centrist.'},
+  'nbc news': {lean:'left', type:'Broadcaster', founded:'1940', ownership:'NBCUniversal', country:'USA', credibility:'High', notes:'US broadcast news network. Considered to lean slightly left with high factual reporting.'},
+  'abc news': {lean:'left', type:'Broadcaster', founded:'1945', ownership:'The Walt Disney Company', country:'USA', credibility:'High', notes:'US broadcast news network. Considered to lean slightly left with high factual reporting.'},
+  'sciencedaily': {lean:'center', type:'Science news', founded:'1995', ownership:'ScienceDaily LLC', country:'USA', credibility:'High', notes:'Aggregates press releases from research institutions. Generally factual; quality depends on the underlying source.'},
+  'the hill': {lean:'center', type:'Digital/Newspaper', founded:'1994', ownership:'Nexstar Media Group', country:'USA', credibility:'High', notes:'Political newspaper focused on US Congress. Generally considered centrist.'},
+  'vox': {lean:'left', type:'Digital news', founded:'2014', ownership:'Vox Media', country:'USA', credibility:'Mixed-High', notes:'Explainer-focused digital news outlet. Considered to lean left, with strong policy coverage.'},
+  'mother jones': {lean:'left', type:'Magazine', founded:'1976', ownership:'Foundation for National Progress (nonprofit)', country:'USA', credibility:'High', notes:'Investigative magazine with a progressive editorial perspective.'},
+  'new york post': {lean:'right', type:'Newspaper', founded:'1801', ownership:'News Corp', country:'USA', credibility:'Mixed', notes:'US tabloid newspaper. Editorial stance is right-leaning; news reporting has mixed credibility.'}
+};
+
+function normalizeSource(s) { return (s||'').toLowerCase().replace(/[.,]/g,'').trim(); }
+
+async function showSourceInfo(source) {
+  const overlay = document.getElementById('popoverOverlay');
+  const popover = document.getElementById('sourcePopover');
+  overlay.classList.add('show');
+  popover.innerHTML = `<div class="pop-header"><h3>${escapeHtml(source)}</h3></div>
+    <div class="pop-body"><div class="source-loading"><div class="spinner"></div>Looking up source info…</div></div>`;
+
+  const key = normalizeSource(source);
+  let info = SOURCE_DB[key] || SOURCE_DB[key.replace(/^the\s+/,'')];
+
+  if (!info) {
+    // Fall back to Gemini lookup
+    try {
+      const prompt = `Look up info about news source "${source}" using Google Search.
+Return JSON only (no markdown fences):
+{"lean":"left|center|right","type":"e.g. Newspaper / Magazine / Wire service / Broadcaster / Digital news","founded":"year","ownership":"who owns it","country":"primary country","credibility":"Very High|High|Mixed|Low","notes":"2-3 sentences on who they are, editorial stance, and credibility"}`;
+      const fallbackPrompt = prompt.replace('Look up info', 'Based on your training knowledge, describe the news source');
+      const data = await geminiCall({
+        contents:[{parts:[{text:prompt}]}],
+        tools:[{google_search:{}}],
+        generationConfig:{temperature:0.3, maxOutputTokens:1024}
+      }, {
+        retries: 2,
+        fallbackBody: {
+          contents:[{parts:[{text: fallbackPrompt}]}],
+          generationConfig:{temperature:0.3, maxOutputTokens:1024}
+        }
+      });
+      const text = data?.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('') || '';
+      info = extractJSON(text) || {lean:'center', type:'Unknown', notes:'No detailed information available for this source.'};
+      if (data._usedFallback && info.notes) info.notes = '(From training knowledge.) ' + info.notes;
+    } catch(e) {
+      info = {lean:'center', type:'Unknown', notes: friendlyError(e)};
+    }
+  }
+  renderSourceInfo(source, info);
+}
+
+function renderSourceInfo(source, info) {
+  const popover = document.getElementById('sourcePopover');
+  popover.innerHTML = `
+    <div class="pop-header">
+      <h3>${escapeHtml(source)}</h3>
+      <span class="pop-lean"><span class="lean ${leanClass(info.lean)}"></span>${leanLabel(info.lean)}-leaning · ${escapeHtml(info.credibility||'—')} credibility</span>
+    </div>
+    <div class="pop-body">
+      ${info.type ? `<div class="pop-row"><span class="label-text">Type</span><span class="val">${escapeHtml(info.type)}</span></div>` : ''}
+      ${info.founded ? `<div class="pop-row"><span class="label-text">Founded</span><span class="val">${escapeHtml(info.founded)}</span></div>` : ''}
+      ${info.ownership ? `<div class="pop-row"><span class="label-text">Ownership</span><span class="val">${escapeHtml(info.ownership)}</span></div>` : ''}
+      ${info.country ? `<div class="pop-row"><span class="label-text">Country</span><span class="val">${escapeHtml(info.country)}</span></div>` : ''}
+      ${info.notes ? `<div class="pop-row about"><span class="label-text">About</span><span class="val">${escapeHtml(info.notes)}</span></div>` : ''}
+    </div>
+    <div class="pop-footer"><button class="btn btn-ghost" id="closeSourceBtn">Close</button></div>`;
+  document.getElementById('closeSourceBtn').addEventListener('click', closeSourceInfo);
+}
+
+function closeSourceInfo() {
+  document.getElementById('popoverOverlay').classList.remove('show');
+}
+
+// ============================================================
+// ACROSS THE AISLE
+// ============================================================
+async function showAcrossAisle(story) {
+  const overlay = document.getElementById('aisleOverlay');
+  const body = document.getElementById('aisleBody');
+  overlay.classList.add('show');
+  document.getElementById('aisleTitle').textContent = story.headline;
+  body.innerHTML = `<div class="aisle-loading"><div class="spinner"></div>Finding how different outlets are covering this story…</div>`;
+
+  try {
+    const prompt = `Use Google Search to find how DIFFERENT news outlets covered this story:
+"${story.headline}"
+Context: ${story.summary || ''}
+
+Return JSON only (no markdown fences) with 3 real articles on this SAME event/topic, one from each part of the political spectrum:
+
+Left-leaning sources: The New York Times, The Washington Post, NPR, The Atlantic, The Guardian, MSNBC, Vox, Mother Jones, CNN
+Center sources: Reuters, AP, BBC, Bloomberg, Axios, The Hill, PBS NewsHour, NBC News, ABC News, The Economist
+Right-leaning sources: The Wall Street Journal, The Washington Times, The American Conservative, Washington Examiner, National Review, Fox News, New York Post
+
+{"left":{"source":"...","headline":"actual headline from that outlet","angle":"1-2 sentences on what this outlet emphasized or how they framed it","url":"real article URL"},
+ "center":{"source":"...","headline":"...","angle":"...","url":"..."},
+ "right":{"source":"...","headline":"...","angle":"...","url":"..."},
+ "insight":"2-3 sentence neutral observation about HOW the three framings differ — what each emphasizes, what's underplayed, any loaded language"}`;
+    // Slim, focused fallback prompt — smaller is more likely to succeed under load
+    const fallbackPrompt = `Story: "${story.headline}"
+Context: ${(story.summary||'').slice(0,300)}
+
+Without using web search, describe how three outlets would typically frame this story based on their editorial styles. Pick one each from left/center/right (from outlets like Guardian, NYT, NPR, Vox / Reuters, AP, BBC, Bloomberg / WSJ, Washington Examiner, Fox News, National Review).
+
+Return JSON only, no markdown fences:
+{"left":{"source":"outlet name","headline":"how they'd headline it","angle":"1-2 sentences on framing","url":"their homepage URL"},
+ "center":{"source":"...","headline":"...","angle":"...","url":"..."},
+ "right":{"source":"...","headline":"...","angle":"...","url":"..."},
+ "insight":"2-3 neutral sentences comparing the three framings"}
+
+Field rules: "source" must be just the outlet NAME (never a URL). "url" must be the outlet's homepage.`;
+
+    const data = await geminiCall({
+      contents:[{parts:[{text:prompt}]}],
+      tools:[{google_search:{}}],
+      generationConfig:{temperature:0.4, maxOutputTokens:2048}
+    }, {
+      retries: 3,
+      fallbackBody: {
+        contents: [{parts:[{text: fallbackPrompt}]}],
+        generationConfig:{temperature:0.5, maxOutputTokens:1536}
+      },
+      onRetry: (attempt, delay, fbNum) => {
+        if (attempt === 'fallback') {
+          body.innerHTML = `<div class="aisle-loading"><div class="spinner"></div>Google Search overloaded — comparing framings without live search…</div>`;
+        } else if (attempt === 'fallback-retry') {
+          body.innerHTML = `<div class="aisle-loading"><div class="spinner"></div>Still busy — retrying fallback (${fbNum}/3, waiting ${(delay/1000).toFixed(1)}s)…</div>`;
+        } else {
+          body.innerHTML = `<div class="aisle-loading"><div class="spinner"></div>Servers are busy — retrying (attempt ${attempt+1}/3, waiting ${(delay/1000).toFixed(1)}s)…</div>`;
+        }
+      }
+    });
+    const text = data?.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('') || '';
+    const parsed = extractJSON(text);
+    if (!parsed) throw new Error('Could not parse comparison');
+    if (data._usedFallback) parsed._fallbackNote = true;
+    renderAisle(parsed);
+  } catch (err) {
+    body.innerHTML = `<p style="color:#92400e;padding:30px;text-align:center;background:#fef3c7;border-radius:12px;line-height:1.5">${escapeHtml(friendlyError(err))}</p>`;
+  }
+}
+
+function renderAisle(d) {
+  const body = document.getElementById('aisleBody');
+  body.innerHTML = `
+    ${d._fallbackNote ? `<div style="background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;padding:10px 14px;border-radius:10px;margin-bottom:14px;font-size:13px;">ℹ️ Google Search was unavailable. These are typical framings each outlet would use, based on Gemini's training — not live articles.</div>` : ''}
+    <div class="aisle-grid">
+      ${['left','center','right'].map(lean => {
+        const item = d[lean]; if (!item) return '';
+        const labels = {left:'Left-leaning source', center:'Center source', right:'Right-leaning source'};
+        return `<div class="aisle-source-card ${lean}">
+          <span class="lean-tag">${labels[lean]}</span>
+          <h4>${escapeHtml(item.headline||'')}</h4>
+          <p>${escapeHtml(item.angle||'')}</p>
+          <div class="src-link">
+            <strong>${escapeHtml(item.source||'')}</strong>
+            <a href="${searchUrl({headline: item.headline, source: item.source})}" target="_blank" rel="noopener">Find article →</a>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+    ${d.insight ? `<div class="aisle-insight"><strong>What this tells us: </strong>${escapeHtml(d.insight)}</div>` : ''}`;
+}
+
+function closeAisle() {
+  document.getElementById('aisleOverlay').classList.remove('show');
+}
+
+// ============================================================
+// AUDIO BRIEFING (text-to-speech)
+// ============================================================
+let audioState = { speaking:false, paused:false, queue:[], index:0, current:null };
+
+function buildAudioQueue(b) {
+  const q = [];
+  q.push({label:'Welcome', text:`Welcome to your Daily Dose for ${document.getElementById('dateString').textContent}. Here's what we picked for you.`});
+  if (b.featured) q.push({label:'Featured story', text:`Today's featured story. From ${b.featured.source}: ${b.featured.headline}. ${b.featured.summary}`});
+  if (b.topThree && b.topThree.length) {
+    q.push({label:'What you need to know', text:`Now, the three things you need to know today.`});
+    b.topThree.forEach((s,i) => q.push({label:`Story ${i+1} of 3`, text:`Story ${i+1}: ${s.headline}. From ${s.source}. ${s.summary}`}));
+  }
+  if (b.pickForYou) q.push({label:'Picked for you', text:`A story picked just for you. From ${b.pickForYou.source}: ${b.pickForYou.headline}. ${b.pickForYou.summary}`});
+  if (b.explainer) q.push({label:'Explainer · ' + (b.explainer.topic||''), text:`Today's deep dive is on ${b.explainer.topic}. ${b.explainer.headline}. ${b.explainer.explanation} Why it matters: ${b.explainer.whyItMatters}`});
+  if (b.podcast) q.push({label:'Podcast pick', text:`For your listening today, check out ${b.podcast.show}: the episode "${b.podcast.title}." ${b.podcast.description}`});
+  q.push({label:'Done', text:`That wraps up your briefing. Have a great day.`});
+  return q;
+}
+
+function startAudio() {
+  if (!('speechSynthesis' in window)) { toast('Speech not supported in this browser.'); return; }
+  let cached = null;
+  try { cached = JSON.parse(localStorage.getItem(CACHE_KEY)); } catch(e) {}
+  if (!cached?.data) { toast('Briefing not loaded yet.'); return; }
+  audioState.queue = buildAudioQueue(cached.data);
+  audioState.index = 0;
+  audioState.speaking = true;
+  audioState.paused = false;
+  document.getElementById('audioPlayer').classList.add('show');
+  setPlayIcon(false);
+  playNext();
+}
+
+function playNext() {
+  if (!audioState.speaking) return;
+  if (audioState.index >= audioState.queue.length) { stopAudio(); return; }
+  const item = audioState.queue[audioState.index];
+  document.getElementById('audioLabel').innerHTML = `<strong>${escapeHtml(item.label)}</strong> · ${audioState.index+1}/${audioState.queue.length}`;
+  const pct = ((audioState.index) / audioState.queue.length * 100).toFixed(0);
+  document.getElementById('audioProgress').style.width = pct + '%';
+  const u = new SpeechSynthesisUtterance(item.text);
+  u.rate = 1.0; u.pitch = 1.0;
+  u.onend = () => { if (audioState.speaking && !audioState.paused) { audioState.index++; playNext(); } };
+  u.onerror = () => { if (audioState.speaking) { audioState.index++; playNext(); } };
+  audioState.current = u;
+  window.speechSynthesis.speak(u);
+}
+
+function togglePlayPause() {
+  if (!audioState.speaking) { startAudio(); return; }
+  if (audioState.paused) { window.speechSynthesis.resume(); audioState.paused = false; setPlayIcon(false); }
+  else { window.speechSynthesis.pause(); audioState.paused = true; setPlayIcon(true); }
+}
+
+function setPlayIcon(showPlay) {
+  document.getElementById('playIcon').style.display = showPlay ? 'block' : 'none';
+  document.getElementById('pauseIcon').style.display = showPlay ? 'none' : 'block';
+}
+
+function stopAudio() {
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  audioState.speaking = false; audioState.paused = false;
+  audioState.queue = []; audioState.index = 0;
+  document.getElementById('audioPlayer').classList.remove('show');
+  document.getElementById('audioProgress').style.width = '0%';
+  setPlayIcon(true);
+}
+
+// ============================================================
+// PER-ARTICLE CHAT (prefill chatbot with story context)
+// ============================================================
+function askAboutStory(story) {
+  chatPanel.classList.add('open');
+  chatInput.value = `Tell me more about: "${story.headline}"`;
+  chatInput.focus();
+  // Add a contextual hint
+  const hint = document.createElement('div');
+  hint.className = 'chat-msg bot';
+  hint.style.background = '#eff6ff';
+  hint.style.borderColor = '#bfdbfe';
+  hint.innerHTML = `Ask me anything about this story from <strong>${escapeHtml(story.source||'Unknown')}</strong>. I can give background, define terms, or compare perspectives.`;
+  chatMessages.appendChild(hint);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// ============================================================
+// CHATBOT
+// ============================================================
+const chatFab = document.getElementById('chatFab');
+const chatPanel = document.getElementById('chatPanel');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const chatSendBtn = document.getElementById('chatSendBtn');
+const closeChatBtn = document.getElementById('closeChatBtn');
+
+let chatHistory = []; // [{role:'user'|'model', text}]
+
+chatFab.addEventListener('click', () => {
+  chatPanel.classList.add('open');
+  chatInput.focus();
+});
+closeChatBtn.addEventListener('click', () => chatPanel.classList.remove('open'));
+
+document.querySelectorAll('#chatSuggestions button').forEach(b => {
+  b.addEventListener('click', () => {
+    chatInput.value = b.dataset.q;
+    sendChat();
+  });
+});
+
+chatSendBtn.addEventListener('click', sendChat);
+chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendChat(); });
+
+function appendMsg(role, text, opts = {}) {
+  const div = document.createElement('div');
+  div.className = `chat-msg ${role}` + (opts.thinking ? ' thinking' : '');
+  div.innerHTML = formatChatText(text);
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  return div;
+}
+function formatChatText(t) {
+  return escapeHtml(t)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+}
+
+async function sendChat() {
+  const msg = chatInput.value.trim();
+  if (!msg) return;
+  chatInput.value = '';
+  chatSendBtn.disabled = true;
+  appendMsg('user', msg);
+  const thinkingEl = appendMsg('bot', 'thinking…', {thinking:true});
+
+  // Build context: today's briefing + last few messages
+  let cached = null;
+  try { cached = JSON.parse(localStorage.getItem(CACHE_KEY)); } catch(e) {}
+  const briefing = cached?.data || {};
+
+  const systemInstr = `You are a friendly, knowledgeable news assistant inside "The Daily Dose" dashboard. Help the user understand today's stories, give context, define terms, and answer follow-up questions. Be warm but concise — typically 2–4 short paragraphs. Use plain language. If the user asks something outside the news domain, gently redirect.
+
+Today's briefing context (JSON):
+${JSON.stringify(briefing).slice(0, 3500)}`;
+
+  chatHistory.push({role:'user', text: msg});
+
+  try {
+    const data = await geminiCall({
+      systemInstruction: { parts: [{text: systemInstr}] },
+      contents: chatHistory.map(m => ({role: m.role, parts: [{text: m.text}]})),
+      generationConfig: { temperature: 0.6, maxOutputTokens: 1024 }
+    }, {
+      retries: 2,
+      onRetry: (attempt) => {
+        thinkingEl.innerHTML = `Servers are busy — retrying (${attempt+1}/2)…`;
+      }
+    });
+    const reply = data?.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('').trim() ||
+                  "I'm not sure how to answer that — could you rephrase?";
+    chatHistory.push({role:'model', text: reply});
+    thinkingEl.classList.remove('thinking');
+    thinkingEl.innerHTML = formatChatText(reply);
+  } catch(err) {
+    thinkingEl.classList.remove('thinking');
+    thinkingEl.innerHTML = friendlyError(err);
+  } finally {
+    chatSendBtn.disabled = false;
+    chatInput.focus();
+  }
+}
+
+// ============================================================
+// TOPBAR ACTIONS
+// ============================================================
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  localStorage.removeItem(CACHE_KEY);
+  toast("Refreshing your briefing…");
+  fetchBriefing(true);
+});
+document.getElementById('settingsBtn').addEventListener('click', () => showOnboarding(true));
+document.getElementById('retryBtn').addEventListener('click', () => fetchBriefing(true));
+
+// New top-bar actions
+document.getElementById('listenBtn').addEventListener('click', startAudio);
+document.getElementById('savedBtn').addEventListener('click', () => {
+  renderSavedDrawer();
+  document.getElementById('drawerOverlay').classList.add('show');
+  document.getElementById('savedDrawer').classList.add('show');
+});
+document.getElementById('statsBtn').addEventListener('click', () => {
+  renderStatsModal();
+  document.getElementById('statsOverlay').classList.add('show');
+});
+document.getElementById('streakChip').addEventListener('click', () => {
+  renderStatsModal();
+  document.getElementById('statsOverlay').classList.add('show');
+});
+
+// Drawer close
+document.getElementById('closeDrawerBtn').addEventListener('click', closeSavedDrawer);
+document.getElementById('drawerOverlay').addEventListener('click', closeSavedDrawer);
+function closeSavedDrawer() {
+  document.getElementById('drawerOverlay').classList.remove('show');
+  document.getElementById('savedDrawer').classList.remove('show');
+}
+
+// Stats modal close
+document.getElementById('closeStatsBtn').addEventListener('click', closeStats);
+document.getElementById('closeStatsBtn2').addEventListener('click', closeStats);
+document.getElementById('resetStatsBtn').addEventListener('click', () => {
+  if (confirm('Reset all your stats? This cannot be undone.')) {
+    localStorage.removeItem(STATS_KEY);
+    recordVisit();
+    renderStatsModal();
+    toast('Stats reset.');
+  }
+});
+function closeStats() { document.getElementById('statsOverlay').classList.remove('show'); }
+
+// ============================================================
+// API KEY MODAL — let users supply their own Gemini key
+// ============================================================
+const apiKeyOverlay = document.getElementById('apiKeyOverlay');
+const apiKeyInput = document.getElementById('apiKeyInput');
+const apiKeyTestResult = document.getElementById('apiKeyTestResult');
+const saveKeyBtn = document.getElementById('saveKeyBtn');
+
+function maskKey(k) {
+  if (!k) return '—';
+  if (k.length < 12) return '***';
+  return k.slice(0, 6) + '…' + k.slice(-4);
+}
+
+function updateKeyStatus() {
+  const box = document.getElementById('keyStatusBox');
+  const icon = document.getElementById('keyStatusIcon');
+  const value = document.getElementById('keyStatusValue');
+  if (isUsingUserKey()) {
+    box.classList.add('using-own');
+    icon.textContent = '✓';
+    value.textContent = `Your own key (${maskKey(getApiKey())})`;
+  } else {
+    box.classList.remove('using-own');
+    icon.textContent = '●';
+    value.textContent = 'Embedded default key';
+  }
+}
+
+function openApiKeyModal() {
+  apiKeyInput.value = isUsingUserKey() ? getApiKey() : '';
+  apiKeyTestResult.className = 'key-test-result';
+  apiKeyTestResult.textContent = '';
+  saveKeyBtn.disabled = !apiKeyInput.value.trim();
+  updateKeyStatus();
+  apiKeyOverlay.classList.add('show');
+  setTimeout(() => apiKeyInput.focus(), 50);
+}
+
+document.getElementById('apiKeyBtn').addEventListener('click', openApiKeyModal);
+document.getElementById('closeApiKeyBtn').addEventListener('click', () => apiKeyOverlay.classList.remove('show'));
+apiKeyOverlay.addEventListener('click', e => { if (e.target.id === 'apiKeyOverlay') apiKeyOverlay.classList.remove('show'); });
+
+apiKeyInput.addEventListener('input', () => {
+  saveKeyBtn.disabled = !apiKeyInput.value.trim();
+  apiKeyTestResult.className = 'key-test-result';
+  apiKeyTestResult.textContent = '';
+});
+
+// Show/hide key visibility
+document.getElementById('toggleKeyVisibilityBtn').addEventListener('click', () => {
+  const shown = apiKeyInput.type === 'text';
+  apiKeyInput.type = shown ? 'password' : 'text';
+  document.getElementById('eyeShownIcon').style.display = shown ? 'block' : 'none';
+  document.getElementById('eyeHiddenIcon').style.display = shown ? 'none' : 'block';
+});
+
+// Test the entered key with a minimal Gemini call
+document.getElementById('testKeyBtn').addEventListener('click', async () => {
+  const key = apiKeyInput.value.trim();
+  if (!key) { apiKeyTestResult.className = 'key-test-result error'; apiKeyTestResult.textContent = 'Please enter a key first.'; return; }
+  apiKeyTestResult.className = 'key-test-result loading';
+  apiKeyTestResult.textContent = 'Testing key…';
+  try {
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${key}`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({contents:[{parts:[{text:'Reply with just: ok'}]}], generationConfig:{maxOutputTokens:20}})
+    });
+    if (r.ok) {
+      apiKeyTestResult.className = 'key-test-result ok';
+      apiKeyTestResult.textContent = '✓ Key works! Click Save to start using it.';
+    } else {
+      let msg = `HTTP ${r.status}`;
+      try { const eb = await r.json(); if (eb?.error?.message) msg = eb.error.message; } catch(e) {}
+      apiKeyTestResult.className = 'key-test-result error';
+      apiKeyTestResult.textContent = `✗ Key didn't work: ${msg.slice(0, 200)}`;
+    }
+  } catch(e) {
+    apiKeyTestResult.className = 'key-test-result error';
+    apiKeyTestResult.textContent = `✗ Couldn't test key: ${e.message}`;
+  }
+});
+
+document.getElementById('saveKeyBtn').addEventListener('click', () => {
+  const key = apiKeyInput.value.trim();
+  if (!key) return;
+  localStorage.setItem(API_KEY_STORAGE, key);
+  // Bust the briefing cache so the next fetch uses the new key
+  localStorage.removeItem(CACHE_KEY);
+  apiKeyOverlay.classList.remove('show');
+  toast('Saved! Now using your own key.');
+  updateKeyStatus();
+});
+
+document.getElementById('clearKeyBtn').addEventListener('click', () => {
+  if (!isUsingUserKey()) { toast('Already using the default key.'); return; }
+  if (confirm("Remove your saved API key and go back to the embedded default?")) {
+    localStorage.removeItem(API_KEY_STORAGE);
+    localStorage.removeItem(CACHE_KEY);
+    apiKeyOverlay.classList.remove('show');
+    toast('Reset — now using the default key.');
+    updateKeyStatus();
+  }
+});
+
+// "Start over" — clears preferences only, re-runs onboarding (keeps saved articles + stats)
+document.getElementById('startOverBtn').addEventListener('click', () => {
+  if (confirm("Start over with a fresh setup?\n\nThis clears your preferences and re-runs the onboarding questions.\n\nYour saved articles and reading streak will be kept.")) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(CACHE_KEY);
+    prefs = null;
+    onboarding = {step:1, data:{motivation:"", currentSources:[], interests:[], lessFamiliar:[], political:""}};
+    // Reset visual selection state
+    document.querySelectorAll('.option.selected').forEach(o => o.classList.remove('selected'));
+    // Close and re-open onboarding in fresh mode
+    hideOnboarding();
+    setTimeout(() => showOnboarding(false), 200);
+    toast("Let's start fresh ✨");
+  }
+});
+
+// "Reset everything" — nuclear option: wipes prefs, saved, stats, and cache
+document.getElementById('resetAllBtn').addEventListener('click', () => {
+  if (confirm("⚠️ Reset EVERYTHING?\n\nThis permanently deletes:\n• Your preferences\n• All saved articles and notes\n• Your reading streak and stats\n• Today's cached briefing\n• Your API key (reverts to default)\n\nThis cannot be undone. Continue?")) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(CACHE_KEY);
+    localStorage.removeItem(SAVED_KEY);
+    localStorage.removeItem(STATS_KEY);
+    localStorage.removeItem(API_KEY_STORAGE);
+    prefs = null;
+    onboarding = {step:1, data:{motivation:"", currentSources:[], interests:[], lessFamiliar:[], political:""}};
+    document.querySelectorAll('.option.selected').forEach(o => o.classList.remove('selected'));
+    closeStats();
+    closeSavedDrawer();
+    stopAudio();
+    updateSavedBadge();
+    recordVisit();           // re-records today's visit so streak starts fresh
+    updateStreakChip();
+    showOnboarding(false);
+    toast("Everything's been reset. Welcome back to a fresh start! ✨");
+  }
+});
+
+// Aisle modal close
+document.getElementById('closeAisleBtn').addEventListener('click', closeAisle);
+document.getElementById('aisleOverlay').addEventListener('click', e => {
+  if (e.target.id === 'aisleOverlay') closeAisle();
+});
+
+// Source popover close (click overlay outside)
+document.getElementById('popoverOverlay').addEventListener('click', e => {
+  if (e.target.id === 'popoverOverlay') closeSourceInfo();
+});
+
+// Audio player controls
+document.getElementById('playPauseBtn').addEventListener('click', togglePlayPause);
+document.getElementById('stopAudioBtn').addEventListener('click', stopAudio);
+
+// ============================================================
+// CARD ACTION DELEGATION
+// ============================================================
+document.addEventListener('click', e => {
+  const actionEl = e.target.closest('[data-action]');
+  if (!actionEl) return;
+  const action = actionEl.dataset.action;
+  const id = actionEl.dataset.storyId;
+
+  if (action === 'source') {
+    e.preventDefault();
+    const source = actionEl.dataset.source;
+    if (source) showSourceInfo(source);
+    return;
+  }
+
+  if (!id) return;
+  const story = findStoryById(id) || loadSaved().find(s => s.id === id);
+
+  if (action === 'save') {
+    e.preventDefault();
+    if (!story) return;
+    const nowSaved = toggleSaved(story, id);
+    // Update all save buttons with this id (could be multiple)
+    document.querySelectorAll(`.save-btn[data-story-id="${id}"]`).forEach(btn => {
+      btn.classList.toggle('active', nowSaved);
+      const lbl = btn.querySelector('.save-label');
+      if (lbl) lbl.textContent = nowSaved ? 'Saved' : 'Save';
+      const svg = btn.querySelector('svg');
+      if (svg) svg.setAttribute('fill', nowSaved ? 'currentColor' : 'none');
+      btn.title = nowSaved ? 'Saved' : 'Save for later';
+    });
+    updateSavedBadge();
+  }
+  else if (action === 'ask') {
+    e.preventDefault();
+    if (story) askAboutStory(story);
+  }
+  else if (action === 'aisle') {
+    e.preventDefault();
+    if (story) showAcrossAisle(story);
+  }
+  else if (action === 'read') {
+    // Let navigation proceed; record the open
+    if (story) recordArticleOpen(story.category);
+  }
+});
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ============================================================
+// BOOT
+// ============================================================
+(function init() {
+  // One-time cleanup: storage was bumped from v1 to v2, so wipe any leftover v1 data
+  ['dailyDose_preferences_v1','dailyDose_cachedBriefing_v1','dailyDose_stats_v1','dailyDose_saved_v1','dailyDose_apiKey_v1']
+    .forEach(k => { try { localStorage.removeItem(k); } catch(e) {} });
+
+  setDate();
+  loadPrefs();
+  recordVisit();
+  updateSavedBadge();
+  if (!prefs) {
+    showOnboarding(false);
+  } else {
+    setGreeting();
+    fetchBriefing(false);
+  }
+})();
+</script>
+</body>
+</html>
